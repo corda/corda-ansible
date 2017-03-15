@@ -1,0 +1,13 @@
+[Unit]
+Description={{ name }}-webserver
+Requires=network.target
+
+[Service]
+Type=Simple
+User={{ user }}
+WorkingDirectory={{ dir_location }}
+ExecStart=/usr/bin/java -jar {{ dir_location }}/{{ name }}-webserver.jar
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

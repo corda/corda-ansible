@@ -1,0 +1,36 @@
+basedir : "{{ dir_location }}"
+artemisAddress : "{{ ansible_hostname }}.{{ domain }}:{{ port_artemis }}"
+webAddress : "0.0.0.0:{{ port_web }}"
+h2port : {{ port_h2 }}
+nearestCity : "{{ city }}"
+myLegalName : "{{ legal_name }}"
+emailAddress : " {{ email_address }}"
+keyStorePassword : "cordacadevpass"
+trustStorePassword : "trustpass"
+{% if role == "notary"  %}
+extraAdvertisedServiceIds: [ "corda.notary.validating" ]
+{% else %}
+extraAdvertisedServiceIds: [ "" ]
+{% endif %}
+useHTTPS : false
+devMode : {{ devmode }}
+{% if role != "networkmap" %}
+networkMapService {
+	address="{{ networkmap_address }}:{{ port_artemis }}"
+	legalName="{{ networkmap_name }}"
+}
+{% endif %}
+rpcUsers=[
+	{
+		user={{ portal_user }}
+		password={{ portal_password }}
+		permissions=[
+			StartFlow.net.corda.flows.CashIssueFlow,
+			StartFlow.net.corda.flows.CashExitFlow,
+			StartFlow.net.corda.flows.CashPaymentFlow
+		]
+	}
+]
+{% if not devmode | bool %}
+certificateSigningService="{{ doorman_url }}"
+{% endif %}

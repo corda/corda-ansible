@@ -1,0 +1,9 @@
+name: corda
+user: corda
+dir_location: /opt/corda
+port_artemis: 10002
+port_web: 10004
+port_h2: 11000
+portal_user: corda
+portal_password: not_blockchain
+devmode: "true"

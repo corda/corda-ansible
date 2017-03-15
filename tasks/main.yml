@@ -1,0 +1,41 @@
+---
+- name: Update APT cache
+  apt: update_cache=yes
+
+- name: Install os packages
+  apt: pkg="{{item}}" state=present
+  with_items:
+    - openjdk-8-jre
+    - openjfx
+    - ntp
+
+- name: Create group
+  group: name={{ user }} state=present
+
+- name: Create user
+  user: name={{ user }} state=present groups={{ user }}
+
+- name: Prepare Corda directory
+  file: path={{ dir_location }} state=directory owner={{ user }} group={{ user }} mode=0755
+
+- name: Install systemd startup file
+  template: src={{ item }}.service.j2 dest=/etc/systemd/system/{{ item }}.service owner=root group=root mode=0755
+  with_items:
+    - corda
+    - corda-webserver
+  notify:
+    - restart corda
+    - restart corda-webserver
+
+- name: Install config file
+  template: src=node.conf.j2 dest={{ dir_location }}/node.conf owner={{ user }} group={{ user }} mode=0755
+  notify: restart corda
+
+# For jars from Maven Central
+- include: source_maven.yml
+  when: source is defined and source == "maven"
+
+# For jars from local directory
+- include: source_local.yml
+when: source is defined and source == "local"
+

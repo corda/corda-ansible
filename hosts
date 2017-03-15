@@ -1,0 +1,16 @@
+[nodes]
+corda-node1.your.domain city="London" legal_name="Corda Node in London" email_address="london@your.domain" role="node"
+corda-node2.your.domain city="New York" legal_name="Corda Node in New York" email_address="ny@your.domain" role="node"
+corda-node3.your.domain city="Singapoure" legal_name="Corda Node in Singapoure" email_address="asia@your.domain" role="node"
+
+[nameserver]
+corda-netmap.your.domain city="Brasil" legal_name="Corda Network Map" email_address="ops@your.domain" role="networkmap"
+
+[notary]
+corda-notary.your.domain city="Hague" legal_name="Corda Notary - Not Validating" email_address="ops@your.domain" role="notary"
+
+[corda:children]
+nodes
+nameserver
+notary
+
