@@ -37,5 +37,5 @@
 
 # For jars from local directory
 - include: source_local.yml
-when: source is defined and source == "local"
+  when: source is defined and source == "local"
 
