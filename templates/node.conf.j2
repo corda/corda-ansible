@@ -1,5 +1,5 @@
 basedir : "{{ dir_location }}"
-artemisAddress : "{{ ansible_hostname }}.{{ domain }}:{{ port_artemis }}"
+artemisAddress : "{{ hostname }}:{{ port_artemis }}"
 webAddress : "0.0.0.0:{{ port_web }}"
 h2port : {{ port_h2 }}
 nearestCity : "{{ city }}"
@@ -7,8 +7,12 @@ myLegalName : "{{ legal_name }}"
 emailAddress : " {{ email_address }}"
 keyStorePassword : "cordacadevpass"
 trustStorePassword : "trustpass"
-{% if role == "notary"  %}
+{% if role == "notary" %}
+{% if notary == "validating" %}
 extraAdvertisedServiceIds: [ "corda.notary.validating" ]
+{% elif notary == "non_validating" %}
+extraAdvertisedServiceIds: [ "corda.notary.simple" ]
+{% endif %}
 {% else %}
 extraAdvertisedServiceIds: [ "" ]
 {% endif %}

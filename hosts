@@ -7,7 +7,7 @@ corda-node3.your.domain city="Singapoure" legal_name="Corda Node in Singapoure" 
 corda-netmap.your.domain city="Brasil" legal_name="Corda Network Map" email_address="ops@your.domain" role="networkmap"
 
 [notary]
-corda-notary.your.domain city="Hague" legal_name="Corda Notary - Not Validating" email_address="ops@your.domain" role="notary"
+corda-notary.your.domain city="Hague" legal_name="Corda Notary" email_address="ops@your.domain" role="notary"
 
 [corda:children]
 nodes
