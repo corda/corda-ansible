@@ -20,7 +20,7 @@ This is summary of action performed by Ansible.
 - Install Corda jars (node and webserver) either from Maven Central, or from your local machine.
 
 
-##Limitations
+## Limitations
 
 - works with Ubuntu 16.04 only
 - uses OpenJDK. However, please note that Corda is going to use Oracle Java, if it installed and configured as the default Java for the system.
