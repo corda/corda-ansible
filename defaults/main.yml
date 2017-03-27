@@ -1,7 +1,7 @@
-hostname: "{{ ansible_hostname }}.{{ domain }}"
 name: corda
 user: corda
 dir_location: /opt/corda
+host_artemis: "{{ ansible_hostname }}.{{ domain }}"
 port_artemis: 10002
 port_web: 10004
 port_h2: 11000
