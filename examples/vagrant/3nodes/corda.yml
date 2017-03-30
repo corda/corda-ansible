@@ -1,0 +1,10 @@
+---
+- hosts: corda
+  remote_user: corda
+  become: True
+  vars:
+    source: maven
+    version: 0.9.2
+    networkmap_address: '10.10.10.102'
+  roles:
+    - corda-ansible

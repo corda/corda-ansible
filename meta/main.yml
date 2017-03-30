@@ -1,0 +1,13 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: wawrzek
+  description: Simple corda role
+  company: "R3"
+  license: "Apache License, Version 2.0"
+  min_ansible_version: 2.2
+  platforms:
+    - name: Ubuntu
+      versions:
+      - all
