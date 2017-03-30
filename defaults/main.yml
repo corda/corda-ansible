@@ -9,3 +9,4 @@ portal_user: corda
 portal_password: not_blockchain
 notary: "non_validating"
 devmode: "true"
+java: openjdk
