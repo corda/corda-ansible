@@ -1,8 +1,4 @@
 ---
-- name: Install LXML (required for Maven Central download)
-  apt: pkg=python-lxml state=present
-  when: source is defined and source == "maven"
-
 - name: Get corda jars from Maven Central
   maven_artifact: group_id=net.corda artifact_id={{ item }} version={{ version }} extension=jar dest={{ dir_location }}/{{ item }}.jar repository_url='http://repo1.maven.org/maven2'
   with_items:

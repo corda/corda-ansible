@@ -1,0 +1,20 @@
+---
+- name: Update APT cache
+  apt: update_cache=yes
+
+- name: Install os packages
+  apt: pkg="{{ item }}" state=present
+  with_items:
+    - ntp
+
+- name: Install OpenJDK
+  apt: pkg="{{ item }}" state=present
+  when: java == "openjdk"
+  with_items:
+    - openjdk-8-jre
+    - openjfx
+
+- name: Install LXML (required for Maven Central download)
+  apt: pkg=python-lxml state=present
+  when: source is defined and source == "maven"
+

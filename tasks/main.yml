@@ -1,13 +1,11 @@
 ---
-- name: Update APT cache
-  apt: update_cache=yes
+# For Ubuntu
+- include: ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
 
-- name: Install os packages
-  apt: pkg="{{item}}" state=present
-  with_items:
-    - openjdk-8-jre
-    - openjfx
-    - ntp
+# For Centos
+- include: centos.yml
+  when: ansible_distribution == 'CentOS'
 
 - name: Create group
   group: name={{ user }} state=present
