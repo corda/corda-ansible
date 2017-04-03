@@ -1,6 +1,6 @@
 ---
 - name: Install OpenJDK
-  apt: pkg="{{ item }}" state=present update_cache=true
+  yum: pkg="{{ item }}" state=present update_cache=true
   when: java == "openjdk"
   with_items:
     - java-1.8.0-openjdk
