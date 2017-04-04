@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 Vagrant.configure(2) do |config|
 	config.vm.provider "virtualbox" do |vb|
-		vb.memory = 512
+		vb.memory = 3072
 		vb.cpus = 1
 	end
 	config.vm.box = "ubuntu/xenial64"
@@ -24,12 +24,11 @@ Vagrant.configure(2) do |config|
 				ansible.extra_vars = {
 					"domain": "localdomain",
 					"host_artemis": "{{ ansible_enp0s8.ipv4.address }}",
-					"networkmap_address": "node3",
 					"networkmap_name": "'Corda Network Map'"}
 				ansible.host_vars = {
 					"node1" => { "city" => "London",
 						"legal_name" => "'Corda Node 1'",
-						"email_address" => "node1@corda.net",
+						"email_address" => "node1@corda.com",
 						"role" => "node" },
 					"node2" => { "city" => "Paris",
 						"legal_name" => "'Corda Node 2 (Notary)'",
