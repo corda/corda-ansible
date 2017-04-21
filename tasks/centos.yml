@@ -1,8 +1,25 @@
 ---
-- name: Install OpenJDK
+- name: Add Zulu.org JDK key
+  rpm_key:
+    key: http://repos.azulsystems.com/RPM-GPG-KEY-azulsystems
+    state: present
+
+- name: Add Zulu.org JDK repository
+  yum_repository:
+    name: zulu
+    description: Zulu.org OpenJDK repo
+    baseurl: "http://repos.azulsystems.com/rhel/$releasever/$basearch"
+    gpgcheck: yes
+    state: present
+
+- name: Install OpenJDK (Zulu build)
   yum: pkg="{{ item }}" state=present update_cache=true
   when: java == "openjdk"
   with_items:
-    - java-1.8.0-openjdk
+    - zulu-8
 
+
+- name: Install LXML (required for Maven Central download)
+  yum: pkg=python-lxml state=present
+  when: source is defined and source == "maven"
 
