@@ -1,5 +1,9 @@
 basedir : "{{ dir_location }}"
+{% if version < 0.10 %}
 artemisAddress : "{{ host_artemis }}:{{ port_artemis }}"
+{% else %}
+p2pAddress : "{{ host_artemis }}:{{ port_artemis }}"
+{% endif %}
 webAddress : "0.0.0.0:{{ port_web }}"
 h2port : {{ port_h2 }}
 nearestCity : "{{ city }}"
