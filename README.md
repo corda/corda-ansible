@@ -9,7 +9,7 @@ This role provides a minimal set of steps required to install Corda on a Linux m
 - Modify the **hosts** file and fill it with valid information about *city* (just for location on a node on network map), *legal node name* (for *network map*), *email address* and node *role*. This information is going to be used by Ansible to create a valid *node.conf* file.
 - run `ansible-playbook -i hosts corda.yml`
 
-## Task for Corda installation
+## Corda installation tasks carried by Ansible
 
 This is a summary of the actions performed by Ansible.
 
@@ -22,5 +22,5 @@ This is a summary of the actions performed by Ansible.
 
 ## Limitations
 
-- tested with Ubuntu 16.04 only CentOS 7 (7.3) only
-- install only OpenJDK from zulu.org (on request). However, please note that Corda is going to use Oracle Java if it is installed and configured as the default Java for the system.
+- tested with Ubuntu 16.04 only CentOS 7 (7.3) only 
+- install only OpenJDK from zulu.org (on request). However, Corda is going to use a default Java VM. Therefore, if you installed Oracle JDK (e.g. using (https://github.com/ansiblebit/oracle-java)[ansiblebit/oracle-java]  role) and set it up as the default Java VM, Corda is going to it.

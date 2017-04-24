@@ -8,13 +8,13 @@
   when: ansible_distribution == 'CentOS'
 
 - name: Create group
-  group: name={{ user }} state=present
+  group: name={{ corda_user }} state=present
 
 - name: Create user
-  user: name={{ user }} state=present groups={{ user }}
+  user: name={{ corda_user }} state=present groups={{ corda_user }}
 
 - name: Prepare Corda directory
-  file: path={{ dir_location }} state=directory owner={{ user }} group={{ user }} mode=0755
+  file: path={{ corda_dir_location }} state=directory owner={{ corda_user }} group={{ corda_user }} mode=0755
 
 - name: Install systemd startup file
   template: src={{ item }}.service.j2 dest=/etc/systemd/system/{{ item }}.service owner=root group=root mode=0755
@@ -26,14 +26,14 @@
     - restart corda-webserver
 
 - name: Install config file
-  template: src=node.conf.j2 dest={{ dir_location }}/node.conf owner={{ user }} group={{ user }} mode=0755
+  template: src=node.conf.j2 dest={{ corda_dir_location }}/node.conf owner={{ corda_user }} group={{ corda_user }} mode=0755
   notify: restart corda
 
 # For jars from Maven Central
 - include: source_maven.yml
-  when: source is defined and source == "maven"
+  when: corda_source == "maven"
 
 # For jars from local directory
 - include: source_local.yml
-  when: source is defined and source == "local"
+  when: corda_source == "local"
 

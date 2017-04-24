@@ -1,37 +1,37 @@
-basedir : "{{ dir_location }}"
-{% if version < 0.10 %}
-artemisAddress : "{{ host_artemis }}:{{ port_artemis }}"
+basedir : "{{ corda_dir_location }}"
+{% if corda_version < 0.10 %}
+artemisAddress : "{{ corda_host_p2p }}:{{ corda_port_p2p }}"
 {% else %}
-p2pAddress : "{{ host_artemis }}:{{ port_artemis }}"
+p2pAddress : "{{ corda_host_p2p }}:{{ corda_port_p2p }}"
 {% endif %}
-webAddress : "0.0.0.0:{{ port_web }}"
-h2port : {{ port_h2 }}
-nearestCity : "{{ city }}"
-myLegalName : "{{ legal_name }}"
-emailAddress : " {{ email_address }}"
+webAddress : "0.0.0.0:{{ corda_port_web }}"
+h2port : {{ corda_port_h2 }}
+nearestCity : "{{ corda_city }}"
+myLegalName : "{{ corda_legal_name }}"
+emailAddress : " {{ corda_admin_email }}"
 keyStorePassword : "cordacadevpass"
 trustStorePassword : "trustpass"
-{% if role == "notary" %}
-{% if notary == "validating" %}
+{% if corda_role == "notary" %}
+{% if corda_notary_type == "validating" %}
 extraAdvertisedServiceIds: [ "corda.notary.validating" ]
-{% elif notary == "non_validating" %}
+{% elif corda_notary_type == "non_validating" %}
 extraAdvertisedServiceIds: [ "corda.notary.simple" ]
 {% endif %}
 {% else %}
 extraAdvertisedServiceIds: [ "" ]
 {% endif %}
 useHTTPS : false
-devMode : {{ devmode }}
-{% if role != "networkmap" %}
+devMode : {{ corda_devmode }}
+{% if corda_role != "corda_networkmap" %}
 networkMapService {
-	address="{{ networkmap_address }}:{{ port_artemis }}"
-	legalName="{{ networkmap_name }}"
+	address="{{ corda_networkmap_address }}:{{ corda_port_p2p }}"
+	legalName="{{ corda_networkmap_name }}"
 }
 {% endif %}
 rpcUsers=[
 	{
-		user={{ portal_user }}
-		password={{ portal_password }}
+		user={{ corda_portal_user }}
+		password={{ corda_portal_password }}
 		permissions=[
 			StartFlow.net.corda.flows.CashIssueFlow,
 			StartFlow.net.corda.flows.CashExitFlow,
@@ -39,6 +39,6 @@ rpcUsers=[
 		]
 	}
 ]
-{% if not devmode | bool %}
-certificateSigningService="{{ doorman_url }}"
+{% if not corda_devmode | bool %}
+certificateSigningService="{{ corda_doorman_url }}"
 {% endif %}

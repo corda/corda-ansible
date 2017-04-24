@@ -1,12 +1,12 @@
 [Unit]
-Description={{ name }}-webserver
+Description=Simple webserver for Corda
 Requires=network.target
 
 [Service]
 Type=Simple
-User={{ user }}
-WorkingDirectory={{ dir_location }}
-ExecStart=/usr/bin/java -jar {{ dir_location }}/{{ name }}-webserver.jar
+User={{ corda_user }}
+WorkingDirectory={{ corda_dir_location }}
+ExecStart=/usr/bin/java -jar {{ corda_dir_location }}/corda-webserver.jar
 Restart=on-failure
 
 [Install]
