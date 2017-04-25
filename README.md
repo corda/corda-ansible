@@ -9,6 +9,31 @@ This role provides a minimal set of steps required to install Corda on a Linux m
 - Modify the **hosts** file and fill it with valid information about *city* (just for location on a node on network map), *legal node name* (for *network map*), *email address* and node *role*. This information is going to be used by Ansible to create a valid *node.conf* file.
 - run `ansible-playbook -i hosts corda.yml`
 
+## Role Variables
+
+All variables are defined in *defaults/main.yml*. Many of them shouldn't been leave with default value. Please note, **corda_devmode** is a string not a boolen. If you are not sure what version to use please visit (http://repo1.maven.org/maven2/net/corda/corda/)[Maven Central].
+
+  corda_dir_location: /opt/corda
+  corda_host_p2p: "{{ ansible_hostname }}"
+  corda_port_p2p: 10002
+  corda_port_web: 10004
+  corda_port_h2: 11000
+  corda_portal_user: corda
+  corda_portal_password: not_blockchain
+  corda_devmode: "true"
+  corda_java: openjdk
+  corda_version: 0.10.1
+  corda_source: maven
+  corda_local_path: ""
+  corda_city: London
+  corda_admin_email: "change_it@corda.net"
+  corda_legal_name: "Corda Test Node - Change it"
+  corda_role: node
+  corda_notary_type: "non_validating"
+  corda_networkmap_address: "example-change.it"
+  corda_networkmap_name: "Corda Test Nameserver - Change it"
+  corda_doorman_url: "example-change.it"
+
 ## Corda installation tasks carried by Ansible
 
 This is a summary of the actions performed by Ansible.
