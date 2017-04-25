@@ -17,4 +17,5 @@ corda_legal_name: "Corda Test Node - Change it"
 corda_role: node
 corda_notary_type: "non_validating"
 corda_networkmap_address: "example-change.it"
+corda_networkmap_name: "Corda Test Nameserver - Change it"
 corda_doorman_url: "example-change.it"
