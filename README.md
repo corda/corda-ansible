@@ -5,7 +5,7 @@ This role provides a minimal set of steps required to install Corda on a Linux m
 
 ## Simple Usage
 
-- For a sensible scenario install at least 3 Ubuntu 16.04 or CentOS 7 virtual or physical servers.
+- For a sensible scenario install at least 3 Ubuntu 16.04 or CentOS 7 virtual or physical servers. There is a Vagrant example  with 3 Ubuntu nodes attached to this repository in (examples/vagrant/ubuntu3nodes).
 - Modify the **hosts** file and fill it with valid information about *city* (just for location on a node on network map), *legal node name* (for *network map*), *email address* and node *role*. This information is going to be used by Ansible to create a valid *node.conf* file.
 - run `ansible-playbook -i hosts corda.yml`
 
@@ -39,7 +39,7 @@ All variables are defined in *defaults/main.yml*. Many of them shouldn't been le
 Please note: 
 - If you are not sure what version to use please visit [Maven Central](http://repo1.maven.org/maven2/net/corda/corda/).
 - *corda_devmode* is a string not a boolen.
-- *corda_role* has to be be one of 3 (node, notary, networkmap)
+- *corda_role* has to be be one of 3 (**node**, **notary**, **networkmap**)
 - *corda_notary_type* can be ethier **validating** or **non_validating**
 - setting *corda_java* to a value diffrent than openjdk will stop role ot install OpenJDK from zulu.org (no Java VM will be install)
 
