@@ -22,22 +22,21 @@ Vagrant.configure(2) do |config|
 					"corda:children" => [ "nodes", "notary", "networkmap" ]
 				}
 				ansible.extra_vars = {
-					"domain": "localdomain",
-					"host_artemis": "{{ ansible_enp0s8.ipv4.address }}",
-					"networkmap_name": "'Corda Network Map'"}
+					"corda_host_artemis": "{{ ansible_enp0s8.ipv4.address }}",
+					"corda_networkmap_name": "'Corda Network Map'"}
 				ansible.host_vars = {
-					"node1" => { "city" => "London",
-						"legal_name" => "'Corda Node 1'",
-						"email_address" => "node1@corda.com",
-						"role" => "node" },
-					"node2" => { "city" => "Paris",
-						"legal_name" => "'Corda Node 2 (Notary)'",
-						"email_address" => "node2@corda.net",
-						"role" => "notary"},
-					"node3" => { "city" => "Wroclaw",
-						"legal_name" => "'Corda Network Map'",
-						"email_address" => "node3@corda.net",
-						"role" => "networkmap"}
+					"node1" => { "corda_city" => "London",
+						"corda_legal_name" => "'Corda Node 1'",
+						"corda_email_address" => "node1@corda.com",
+						"corda_role" => "node" },
+					"node2" => { "corda_city" => "Paris",
+						"corda_legal_name" => "'Corda Node 2 (Notary)'",
+						"corda_email_address" => "node2@corda.net",
+						"corda_role" => "notary"},
+					"node3" => { "corda_city" => "Wroclaw",
+						"corda_legal_name" => "'Corda Network Map'",
+						"corda_email_address" => "node3@corda.net",
+						"corda_role" => "networkmap"}
 					}
 			end
 		end
