@@ -3,11 +3,10 @@
   remote_user: vagrant
   become: True
   vars:
-    source: maven
-    local_path: "/Users/wawrzek/Downloads/"
-    version: 0.10.1
-    devmode: true
-    networkmap_address: '10.10.10.103'
-    networkmap_name: "Corda Network Map"
+    corda_source: maven
+    corda_version: 0.10.1
+    corda_devmode: true
+    corda_networkmap_address: '10.10.10.103'
+    corda_networkmap_name: "Corda Network Map"
   roles:
     - corda-ansible
