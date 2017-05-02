@@ -1,0 +1,12 @@
+---
+- hosts: corda
+  remote_user: vagrant
+  become: True
+  vars:
+    corda_source: maven
+    corda_version: 0.10.1
+    corda_devmode: true
+    corda_networkmap_address: '10.10.10.103'
+    corda_networkmap_name: "Corda Network Map"
+  roles:
+    - corda-ansible

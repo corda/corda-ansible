@@ -1,6 +1,6 @@
 ---
 - name: Get corda jars from local file
-  copy: src={{ local_path }}{{ item }} dest={{ dir_location }} owner={{ user }} group={{ user }} mode=755
+  copy: src={{ corda_local_path }}{{ item }} dest={{ corda_dir_location }} owner={{ corda_user }} group={{ corda_user }} mode=755
   with_items:
     - corda.jar
     - corda-webserver.jar

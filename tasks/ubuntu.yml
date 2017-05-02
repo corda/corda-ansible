@@ -1,13 +1,13 @@
 ---
 - name: Add Zulu.org JDK repository key
   apt_key: keyserver=keyserver.ubuntu.com id=0x219BD9C9
-  when: java == "openjdk"
+  when: corda_java == "openjdk"
 
 - name: Add Zulu.org JDK repository
   apt_repository:
     repo: deb http://repos.azulsystems.com/ubuntu stable main
     state: present
-  when: java == "openjdk"
+  when: corda_java == "openjdk"
 
 - name: Update APT cache
   apt: update_cache=yes
@@ -19,11 +19,11 @@
 
 - name: Install OpenJDK (Zulu build)
   apt: pkg="{{ item }}" state=present
-  when: java == "openjdk"
+  when: corda_java == "openjdk"
   with_items:
     - zulu-8
 
 - name: Install LXML (required for Maven Central download)
   apt: pkg=python-lxml state=present
-  when: source is defined and source == "maven"
+  when: corda_source == "maven"
 

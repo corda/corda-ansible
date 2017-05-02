@@ -1,21 +1,19 @@
 ---
 - name: Get corda jars from Maven Central
-  maven_artifact: group_id=net.corda artifact_id={{ item }} version={{ version }} extension=jar dest={{ dir_location }}/{{ item }}.jar repository_url='http://repo1.maven.org/maven2'
+  maven_artifact: group_id=net.corda artifact_id={{ item }} version={{ corda_version }} extension=jar dest={{ corda_dir_location }}/{{ item }}.jar repository_url='http://repo1.maven.org/maven2'
   with_items:
     - corda
     - corda-webserver
-  when: source is defined and source == "maven"
   notify:
     - start corda
     - start corda-webserver
   # module has a bug and repository_url is necessary for now
 
 - name: Ensure good ownership for files
-  file: path={{ dir_location }}/{{ item }}.jar owner={{ user }} group={{ user }} mode=0755
+  file: path={{ corda_dir_location }}/{{ item }}.jar owner={{ corda_user }} group={{ corda_user }} mode=0755
   with_items:
     - corda
     - corda-webserver
-  when: source is defined and source == "maven"
   notify:
     - start corda
     - start corda-webserver

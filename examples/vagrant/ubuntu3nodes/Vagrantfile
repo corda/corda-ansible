@@ -1,0 +1,44 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+Vagrant.configure(2) do |config|
+	config.vm.provider "virtualbox" do |vb|
+		vb.memory = 3072
+		vb.cpus = 1
+	end
+	config.vm.box = "ubuntu/xenial64"
+	(1..3).each do |i|
+		config.vm.define "node#{i}" do |node|
+			node.vm.hostname = "node#{i}"
+			node.vm.network "private_network", ip: "10.10.10.10#{i}"
+			node.vm.provision "shell", inline: "apt-get install -y python"
+			node.vm.provision "ansible" do |ansible|
+#				ansible.verbose = "vvvv"
+				ansible.force_remote_user = true
+				ansible.playbook = "corda.yml"
+				ansible.groups = {
+					"nodes" => [ "node1" ],
+					"notary" => [ "node2" ],
+					"networkmap" => [ "node3" ],
+					"corda:children" => [ "nodes", "notary", "networkmap" ]
+				}
+				ansible.extra_vars = {
+					"corda_host_artemis": "{{ ansible_enp0s8.ipv4.address }}",
+					"corda_networkmap_name": "'Corda Network Map'"}
+				ansible.host_vars = {
+					"node1" => { "corda_city" => "London",
+						"corda_legal_name" => "'Corda Node 1'",
+						"corda_email_address" => "node1@corda.com",
+						"corda_role" => "node" },
+					"node2" => { "corda_city" => "Paris",
+						"corda_legal_name" => "'Corda Node 2 (Notary)'",
+						"corda_email_address" => "node2@corda.net",
+						"corda_role" => "notary"},
+					"node3" => { "corda_city" => "Wroclaw",
+						"corda_legal_name" => "'Corda Network Map'",
+						"corda_email_address" => "node3@corda.net",
+						"corda_role" => "networkmap"}
+					}
+			end
+		end
+	end
+end
