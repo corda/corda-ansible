@@ -8,7 +8,7 @@ webAddress : "0.0.0.0:{{ corda_port_web }}"
 h2port : {{ corda_port_h2 }}
 nearestCity : "{{ corda_city }}"
 myLegalName : "{{ corda_legal_name }}"
-emailAddress : " {{ corda_admin_email }}"
+emailAddress : "{{ corda_admin_email }}"
 keyStorePassword : "cordacadevpass"
 trustStorePassword : "trustpass"
 {% if corda_role == "notary" %}
