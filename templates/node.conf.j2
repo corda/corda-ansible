@@ -7,7 +7,11 @@ p2pAddress : "{{ corda_host_p2p }}:{{ corda_port_p2p }}"
 webAddress : "0.0.0.0:{{ corda_port_web }}"
 h2port : {{ corda_port_h2 }}
 nearestCity : "{{ corda_city }}"
+{% if corda_version < 0.11 %}
 myLegalName : "{{ corda_legal_name }}"
+{% else %}
+myLegalName : "CN={{ corda_legal_name }},O={{ corda_org }},OU={{ corda_org_unit }},L={{ corda_city }},C={{ corda_country }}"
+{% endif %}
 emailAddress : "{{ corda_admin_email }}"
 keyStorePassword : "cordacadevpass"
 trustStorePassword : "trustpass"
