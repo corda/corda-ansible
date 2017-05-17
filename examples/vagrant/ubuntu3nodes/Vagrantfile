@@ -23,17 +23,22 @@ Vagrant.configure(2) do |config|
 				}
 				ansible.extra_vars = {
 					"corda_host_artemis": "{{ ansible_enp0s8.ipv4.address }}",
-					"corda_networkmap_name": "'Corda Network Map'"}
+					"corda_networkmap_name": "'Corda Network Map'"},
+					"corda_org": "'Corda'"},
+					"corda_org_unit": "'Test'"}
 				ansible.host_vars = {
 					"node1" => { "corda_city" => "London",
+						"corda_country" => "UK",
 						"corda_legal_name" => "'Corda Node 1'",
 						"corda_email_address" => "node1@corda.com",
 						"corda_role" => "node" },
 					"node2" => { "corda_city" => "Paris",
+						"corda_country" => "France",
 						"corda_legal_name" => "'Corda Node 2 (Notary)'",
 						"corda_email_address" => "node2@corda.net",
 						"corda_role" => "notary"},
 					"node3" => { "corda_city" => "Wroclaw",
+						"corda_country" => "Poland",
 						"corda_legal_name" => "'Corda Network Map'",
 						"corda_email_address" => "node3@corda.net",
 						"corda_role" => "networkmap"}
