@@ -26,7 +26,7 @@ extraAdvertisedServiceIds: [ "" ]
 {% endif %}
 useHTTPS : false
 devMode : {{ corda_devmode }}
-{% if corda_role != "corda_networkmap" %}
+{% if corda_role != "networkmap" %}
 networkMapService {
 	address="{{ corda_networkmap_address }}:{{ corda_port_p2p }}"
 	legalName="{{ corda_networkmap_name }}"
