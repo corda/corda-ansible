@@ -27,7 +27,10 @@ All variables are defined in *defaults/main.yml*. Many of them shouldn't been le
 | corda_version | 0.10.1 |
 | corda_source | maven |
 | corda_local_path | "" |
+| corda_country | UK |
 | corda_city | London |
+| corda_org | Corda |
+| corda_org_unit | Corda |
 | corda_admin_email | "change_it@corda.net" |
 | corda_legal_name | "Corda Test Node - Change it" |
 | corda_role | node |
