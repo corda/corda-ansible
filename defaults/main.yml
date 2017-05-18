@@ -2,6 +2,7 @@ corda_user: corda
 corda_dir_location: /opt/corda
 corda_host_p2p: "{{ ansible_hostname }}"
 corda_port_p2p: 10002
+corda_port_rpc: 10003
 corda_port_web: 10004
 corda_port_h2: 11000
 corda_portal_user: corda
@@ -12,6 +13,9 @@ corda_version: 0.10.1
 corda_source: maven
 corda_local_path: ""
 corda_city: London
+corda_country: UK
+corda_org: Corda
+corda_org_unit: Corda
 corda_admin_email: "change_it@corda.net"
 corda_legal_name: "Corda Test Node - Change it"
 corda_role: node

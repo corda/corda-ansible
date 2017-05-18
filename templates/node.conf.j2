@@ -1,13 +1,18 @@
 basedir : "{{ corda_dir_location }}"
-{% if corda_version < 0.10 %}
+{% if corda_version|version_compare('0.10','<') %}
 artemisAddress : "{{ corda_host_p2p }}:{{ corda_port_p2p }}"
 {% else %}
 p2pAddress : "{{ corda_host_p2p }}:{{ corda_port_p2p }}"
+rpcAddress : "{{ corda_host_p2p }}:{{ corda_port_rpc }}"
 {% endif %}
 webAddress : "0.0.0.0:{{ corda_port_web }}"
 h2port : {{ corda_port_h2 }}
 nearestCity : "{{ corda_city }}"
+{% if corda_version|version_compare('0.11','<') %}
 myLegalName : "{{ corda_legal_name }}"
+{% else %}
+myLegalName : "CN={{ corda_legal_name }},O={{ corda_org }},OU={{ corda_org_unit }},L={{ corda_city }},C={{ corda_country }}"
+{% endif %}
 emailAddress : "{{ corda_admin_email }}"
 keyStorePassword : "cordacadevpass"
 trustStorePassword : "trustpass"
@@ -22,7 +27,7 @@ extraAdvertisedServiceIds: [ "" ]
 {% endif %}
 useHTTPS : false
 devMode : {{ corda_devmode }}
-{% if corda_role != "corda_networkmap" %}
+{% if corda_role != "networkmap" %}
 networkMapService {
 	address="{{ corda_networkmap_address }}:{{ corda_port_p2p }}"
 	legalName="{{ corda_networkmap_name }}"
