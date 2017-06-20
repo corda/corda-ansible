@@ -1,11 +1,11 @@
 [nodes]
-10.10.10.101 city=London legal_name="Corda Node 1" email_address=test@test.net role=node
+10.10.10.101 corda_country=GB corda_city=London corda_org=Corda corda_org_unit=Test corda_legal_name="Corda Node 1" corda_admin_email=test@test.net corda_role=node
 
 [notary]
-10.10.10.102 city=Paris legal_name="Corda Node 2 (Notary)" email_address=test@test.net  role=notary
+10.10.10.102 corda_country=FR corda_city=Paris corda_org=Corda corda_org_unit=Test corda_legal_name="Corda Node 2 (Notary)" corda_admin_email=test@test.net  corda_role=notary corda_notary_type="non_validating"
 
 [nameserver]
-10.10.10.103 city="Wroclaw" legal_name="Corda Network Map" email_address=test@test.net  role=networkmap
+10.10.10.103 corda_country=PL corda_city=Warsaw corda_org=Corda corda_org_unit=Test corda_legal_name="Corda Network Map" corda_admin_email=test@test.net  corda_role=networkmap
 
 [corda:children]
 nodes

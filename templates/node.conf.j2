@@ -7,7 +7,9 @@ rpcAddress : "{{ corda_host_p2p }}:{{ corda_port_rpc }}"
 {% endif %}
 webAddress : "0.0.0.0:{{ corda_port_web }}"
 h2port : {{ corda_port_h2 }}
+{% if corda_version|version_compare('0.12','>') %}
 nearestCity : "{{ corda_city }}"
+{% endif %}
 {% if corda_version|version_compare('0.11','<') %}
 myLegalName : "{{ corda_legal_name }}"
 {% else %}
@@ -38,9 +40,7 @@ rpcUsers=[
 		user={{ corda_portal_user }}
 		password={{ corda_portal_password }}
 		permissions=[
-			StartFlow.net.corda.flows.CashIssueFlow,
-			StartFlow.net.corda.flows.CashExitFlow,
-			StartFlow.net.corda.flows.CashPaymentFlow
+			ALL
 		]
 	}
 ]
