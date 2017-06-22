@@ -13,9 +13,9 @@ nearestCity : "{{ corda_city }}"
 {% if corda_version|version_compare('0.11','<') %}
 myLegalName : "{{ corda_legal_name }}"
 {% else %}
-myLegalName : "CN={{ corda_legal_name }},O={{ corda_org }},OU={{ corda_org_unit }},L={{ corda_city }},C={{ corda_country }}"
+myLegalName : "CN={{ corda_legal_name }}, O={{ corda_org }}, OU={{ corda_org_unit }}, L={{ corda_city }}, C={{ corda_country }}, E={{ corda_admin_email }}"
+"
 {% endif %}
-emailAddress : "{{ corda_admin_email }}"
 keyStorePassword : "cordacadevpass"
 trustStorePassword : "trustpass"
 {% if corda_role == "notary" %}
