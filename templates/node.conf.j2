@@ -14,7 +14,6 @@ nearestCity : "{{ corda_city }}"
 myLegalName : "{{ corda_legal_name }}"
 {% else %}
 myLegalName : "CN={{ corda_legal_name }}, O={{ corda_org }}, OU={{ corda_org_unit }}, L={{ corda_city }}, C={{ corda_country }}, E={{ corda_admin_email }}"
-"
 {% endif %}
 keyStorePassword : "cordacadevpass"
 trustStorePassword : "trustpass"
