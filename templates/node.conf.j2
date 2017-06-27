@@ -7,11 +7,12 @@ rpcAddress : "{{ corda_host_p2p }}:{{ corda_port_rpc }}"
 {% endif %}
 webAddress : "0.0.0.0:{{ corda_port_web }}"
 h2port : {{ corda_port_h2 }}
-{% if corda_version|version_compare('0.12','>') %}
+{% if corda_version|version_compare('0.12','<') %}
 nearestCity : "{{ corda_city }}"
 {% endif %}
 {% if corda_version|version_compare('0.11','<') %}
 myLegalName : "{{ corda_legal_name }}"
+emailAddress : "{{ corda_admin_email }}"
 {% else %}
 myLegalName : "CN={{ corda_legal_name }}, O={{ corda_org }}, OU={{ corda_org_unit }}, L={{ corda_city }}, C={{ corda_country }}, E={{ corda_admin_email }}"
 {% endif %}
