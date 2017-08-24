@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 Vagrant.configure(2) do |config|
 	config.vm.provider "virtualbox" do |vb|
-		vb.memory = 3072
+		vb.memory = 2048
 		vb.cpus = 1
 	end
 	config.vm.box = "ubuntu/xenial64"
@@ -25,7 +25,8 @@ Vagrant.configure(2) do |config|
 					"corda_host_p2p" => "{{ ansible_enp0s8.ipv4.address }}",
 					"corda_networkmap_name" => "CN=Corda Network Map, O=Corda, OU=Test, L=Warsaw, C=PL",
 					"corda_org" => "Corda",
-					"corda_org_unit" => "Test"}
+					"corda_org_unit" => "Test",
+					"corda_java_options => "-Xmx1024m"}
 				ansible.host_vars = {
 					"node1" => { "corda_city" => "London",
 						"corda_country" => "GB",
