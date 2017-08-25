@@ -15,19 +15,23 @@ All variables are defined in *defaults/main.yml*. Many of them shouldn't been le
 
 |  variable | default value |
 | --- | --- |
+| corda_user | corda |
 | corda_dir_location | /opt/corda |
 | corda_host_p2p | "{{ ansible_hostname }}" |
+| corda_host_rpc | "{{ ansible_hostname }}" |
 | corda_port_p2p | 10002 |
+| corda_port_rpc | 10003 |
 | corda_port_web | 10004 |
 | corda_port_h2 | 11000 |
 | corda_portal_user | corda |
 | corda_portal_password | not_blockchain |
 | corda_devmode | "true" |
 | corda_java | openjdk |
-| corda_version | 0.10.1 |
+| corda_java_options | -Xmx2048 |
+| corda_version | 0.12.1 |
 | corda_source | maven |
 | corda_local_path | "" |
-| corda_country | UK |
+| corda_country | GB |
 | corda_city | London |
 | corda_org | Corda |
 | corda_org_unit | Corda |
