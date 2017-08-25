@@ -3,7 +3,7 @@ basedir : "{{ corda_dir_location }}"
 artemisAddress : "{{ corda_host_p2p }}:{{ corda_port_p2p }}"
 {% else %}
 p2pAddress : "{{ corda_host_p2p }}:{{ corda_port_p2p }}"
-rpcAddress : "{{ corda_host_p2p }}:{{ corda_port_rpc }}"
+rpcAddress : "{{ corda_host_rpc }}:{{ corda_port_rpc }}"
 {% endif %}
 webAddress : "0.0.0.0:{{ corda_port_web }}"
 h2port : {{ corda_port_h2 }}

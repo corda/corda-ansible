@@ -6,6 +6,6 @@
     corda_source: maven
     corda_version: 0.12.1
     corda_networkmap_address: '10.10.10.103'
-    corda_networkmap_name: "CN=Corda Network Map, O=Corda, OU=Test, L=Warsaw, C=PL"
+    corda_networkmap_name: "CN=Corda Network Map, O=Corda, OU=Test, L=Warsaw, C=PL, E=change_it@corda.net"
   roles:
     - corda-ansible

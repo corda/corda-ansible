@@ -3,7 +3,7 @@ Description=Simple webserver for Corda
 Requires=network.target
 
 [Service]
-Type=Simple
+Type=simple
 User={{ corda_user }}
 WorkingDirectory={{ corda_dir_location }}
 ExecStart=/usr/bin/java -jar {{ corda_dir_location }}/corda-webserver.jar
