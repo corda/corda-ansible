@@ -24,11 +24,11 @@ All variables are defined in *defaults/main.yml*. Many of them shouldn't been le
 | corda_port_web | 10004 |
 | corda_port_h2 | 11000 |
 | corda_portal_user | corda |
-| corda_portal_password | not_blockchain |
+| corda_portal_password | corda_is_awesome |
 | corda_devmode | "true" |
 | corda_java | openjdk |
 | corda_java_options | -Xmx2048 |
-| corda_version | 0.12.1 |
+| corda_version | 1.0.0 |
 | corda_source | maven |
 | corda_local_path | "" |
 | corda_country | GB |
@@ -36,12 +36,12 @@ All variables are defined in *defaults/main.yml*. Many of them shouldn't been le
 | corda_org | Corda |
 | corda_org_unit | Corda |
 | corda_admin_email | "change_it@corda.net" |
-| corda_legal_name | "Corda Test Node - Change it" |
 | corda_role | node |
 | corda_notary_type | "non_validating" |
 | corda_networkmap_address | "example-change.it" |
-| corda_networkmap_name | "Corda Test Nameserver - Change it" |
+| corda_networkmap_name | "O=Corda, L=London, C=GB" |
 | corda_doorman_url | "example-change.it" |
+| corda_legal_name | (_depricate in 1.0_) "Corda Test Node - Change it" |
 
 Please note: 
 - If you are not sure what version to use please visit [Maven Central](http://repo1.maven.org/maven2/net/corda/corda/).
@@ -64,5 +64,5 @@ This is a summary of the actions performed by Ansible.
 
 ## Limitations
 
-- tested with Ubuntu 16.04 only CentOS 7 (7.3) only 
+- tested with Ubuntu 16.04 only CentOS 7 (7.3) only
 - install only OpenJDK from zulu.org (on request). However, Corda is going to use a default Java VM. Therefore, if you installed Oracle JDK (e.g. using [ansiblebit/oracle-java](https://github.com/ansiblebit/oracle-java) role) and set it up as the default Java VM, Corda is going to it.
