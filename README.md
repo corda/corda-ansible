@@ -11,7 +11,7 @@ This role provides a minimal set of steps required to install Corda on a Linux m
 
 ## Role Variables
 
-All variables are defined in *defaults/main.yml*. Many of them shouldn't been leave with default value.
+All variables are defined in *defaults/main.yml*. Some of them should be changed from the default value.
 
 |  variable | default value |
 | --- | --- |
@@ -44,16 +44,16 @@ All variables are defined in *defaults/main.yml*. Many of them shouldn't been le
 | corda_legal_name | (_deprecated in 1.0_) "Corda Test Node - Change it" |
 
 Please note: 
-- If you are not sure what version to use please visit [Maven Central](http://repo1.maven.org/maven2/net/corda/corda/).
-- *corda_devmode* is a string not a boolen.
+- If you are not sure which version to use please visit [Maven Central](http://repo1.maven.org/maven2/net/corda/corda/).
+- *corda_devmode* is a string not a boolean.
 - *corda_role* has to be be one of 3 (**node**, **notary**, **networkmap**)
-- *corda_notary_type* can be ethier **validating** or **non_validating**
-- setting *corda_java* to a value diffrent than openjdk will stop role ot install OpenJDK from zulu.org (no Java VM will be install)
+- *corda_notary_type* can be either **validating** or **non_validating**
+- setting *corda_java* to a value other than openjdk will prevent the role installing OpenJDK from zulu.org (no Java VM will be installed)
 
 
 ## Corda installation tasks carried by Ansible
 
-This is a summary of the actions performed by Ansible.
+This is a summary of the actions performed by Ansible:
 
 - Install necessary packages (including OpenJDK from zulu.org by default)
 - Create a user and a directory for Corda
@@ -65,4 +65,4 @@ This is a summary of the actions performed by Ansible.
 ## Limitations
 
 - tested with Ubuntu 16.04 only CentOS 7 (7.3) only
-- install only OpenJDK from zulu.org (on request). However, Corda is going to use a default Java VM. Therefore, if you installed Oracle JDK (e.g. using [ansiblebit/oracle-java](https://github.com/ansiblebit/oracle-java) role) and set it up as the default Java VM, Corda is going to it.
+- installs only OpenJDK from zulu.org (on request). However, Corda will use your machine's default Java VM. Therefore, if you installed Oracle JDK (e.g. using [ansiblebit/oracle-java](https://github.com/ansiblebit/oracle-java) role) and set it up as the default Java VM, Corda will use it.
