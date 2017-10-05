@@ -41,7 +41,7 @@ All variables are defined in *defaults/main.yml*. Many of them shouldn't been le
 | corda_networkmap_address | "example-change.it" |
 | corda_networkmap_name | "O=Corda, L=London, C=GB" |
 | corda_doorman_url | "example-change.it" |
-| corda_legal_name | (_depricate in 1.0_) "Corda Test Node - Change it" |
+| corda_legal_name | (_deprecated in 1.0_) "Corda Test Node - Change it" |
 
 Please note: 
 - If you are not sure what version to use please visit [Maven Central](http://repo1.maven.org/maven2/net/corda/corda/).
