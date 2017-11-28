@@ -13,6 +13,7 @@ notary : { validating : true }
 {% elif corda_notary_type == "non_validating" %}
 notary : { validating : false }
 {% endif %}
+{% endif %}
 useHTTPS : false
 devMode : {{ corda_devmode }}
 {% if corda_role != "networkmap" %}
