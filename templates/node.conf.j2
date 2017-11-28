@@ -9,12 +9,9 @@ keyStorePassword : "cordacadevpass"
 trustStorePassword : "trustpass"
 {% if corda_role == "notary" %}
 {% if corda_notary_type == "validating" %}
-extraAdvertisedServiceIds: [ "corda.notary.validating" ]
+notary : { validating : true }
 {% elif corda_notary_type == "non_validating" %}
-extraAdvertisedServiceIds: [ "corda.notary.simple" ]
-{% endif %}
-{% else %}
-extraAdvertisedServiceIds: [ "" ]
+notary : { validating : false }
 {% endif %}
 useHTTPS : false
 devMode : {{ corda_devmode }}
