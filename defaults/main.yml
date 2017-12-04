@@ -11,7 +11,7 @@ corda_portal_password: corda_is_awesome
 corda_devmode: !!str true
 corda_java: openjdk
 corda_java_options: "-Xmx2048m"
-corda_version: 1.0.0
+corda_version: 2.0.0
 corda_source: maven
 corda_local_path: ""
 corda_country: GB
@@ -19,7 +19,7 @@ corda_city: London
 corda_org: Corda
 corda_org_unit: Corda
 corda_admin_email: "change_it@corda.net"
-corda_legal_name: "Corda Test Node - Change it"
+corda_legal_name: "Corda Test - Change it"
 corda_role: node
 corda_notary_type: "non_validating"
 corda_networkmap_address: "example-change.it"

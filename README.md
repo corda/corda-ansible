@@ -28,7 +28,7 @@ All variables are defined in *defaults/main.yml*. Some of them should be changed
 | corda_devmode | "true" |
 | corda_java | openjdk |
 | corda_java_options | -Xmx2048 |
-| corda_version | 1.0.0 |
+| corda_version | 2.0.0 |
 | corda_source | maven |
 | corda_local_path | "" |
 | corda_country | GB |
@@ -46,7 +46,7 @@ All variables are defined in *defaults/main.yml*. Some of them should be changed
 Please note: 
 - If you are not sure which version to use please visit [Maven Central](http://repo1.maven.org/maven2/net/corda/corda/).
 - *corda_devmode* is a string not a boolean.
-- *corda_role* has to be be one of 3 (**node**, **notary**, **networkmap**)
+- *corda_role* has to be be either **node** or **notary**
 - *corda_notary_type* can be either **validating** or **non_validating**
 - setting *corda_java* to a value other than openjdk will prevent the role installing OpenJDK from zulu.org (no Java VM will be installed)
 

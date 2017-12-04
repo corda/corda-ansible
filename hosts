@@ -3,14 +3,10 @@ corda-node1.your.domain corda_city="London" corda_legal_name="Corda Node in Lond
 corda-node2.your.domain corda_city="New York" corda_legal_name="Corda Node in New York" corda_admin_email="ny@your.domain" corda_role="node"
 corda-node3.your.domain corda_city="Singapoure" corda_legal_name="Corda Node in Singapoure" corda_admin_email="asia@your.domain" corda_role="node"
 
-[natworkmap]
-corda-netmap.your.domain corda_city="Brasil" corda_legal_name="Corda Network Map" corda_admin_email="ops@your.domain" corda_role="networkmap"
-
 [notary]
 corda-notary.your.domain corda_city="Hague" corda_legal_name="Corda Notary" corda_admin_email="ops@your.domain" corda_role="notary"
 
 [corda:children]
 nodes
-networkmap
 notary
 
