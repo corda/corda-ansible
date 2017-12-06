@@ -9,27 +9,29 @@ keyStorePassword : "cordacadevpass"
 trustStorePassword : "trustpass"
 {% if corda_role == "notary" %}
 {% if corda_notary_type == "validating" %}
-notary : { validating : true }
+extraAdvertisedServiceIds: [ "corda.notary.validating" ]
 {% elif corda_notary_type == "non_validating" %}
-notary : { validating : false }
+extraAdvertisedServiceIds: [ "corda.notary.simple" ]
 {% endif %}
+{% else %}
+extraAdvertisedServiceIds: [ "" ]
 {% endif %}
 useHTTPS : false
 devMode : {{ corda_devmode }}
 {% if corda_role != "networkmap" %}
 networkMapService {
-	address="{{ corda_networkmap_address }}:{{ corda_port_p2p }}"
-	legalName="{{ corda_networkmap_name }}"
+  address="{{ corda_networkmap_address }}:{{ corda_port_p2p }}"
+  legalName="{{ corda_networkmap_name }}"
 }
 {% endif %}
 rpcUsers=[
-	{
-		user={{ corda_portal_user }}
-		password={{ corda_portal_password }}
-		permissions=[
-			ALL
-		]
-	}
+  {
+    user={{ corda_portal_user }}
+    password={{ corda_portal_password }}
+    permissions=[
+      ALL
+    ]
+  }
 ]
 {% if not corda_devmode | bool %}
 certificateSigningService="{{ corda_doorman_url }}"
