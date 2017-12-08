@@ -7,7 +7,7 @@ emailAddress : "{{ corda_admin_email }}"
 myLegalName : "O={{ corda_org }}, L={{ corda_city }}, C={{ corda_country }}"
 keyStorePassword : "cordacadevpass"
 trustStorePassword : "trustpass"
-{% if corda_version | version_compare('2.0.0', 'gt') %}
+{% if corda_version | version_compare('2.0.0', '>') %}
 {% if corda_role == "notary" %}
 {% if corda_notary_type == "validating" %}
 notary : { validating : true }
@@ -16,7 +16,7 @@ notary : { validating : false }
 {% endif %}
 {% endif %}
 {% endif %}
-{% if corda_version | version_compare('2.0.0', 'le') %}
+{% if corda_version | version_compare('2.0.0', '<=') %}
 {% if corda_role == "notary" %}
 {% if corda_notary_type == "validating" %}
 extraAdvertisedServiceIds: [ "corda.notary.validating" ]
