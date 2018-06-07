@@ -25,8 +25,8 @@
     - restart corda
     - restart corda-webserver
 
-- name: Install config file (version 1 and 2)
-  template: src=node.conf.2.j2 dest={{ corda_dir_location }}/node.conf owner={{ corda_user }} group={{ corda_user }} mode=0755
+- name: Install config file (version 3 )
+  template: src=node.conf.j2 dest={{ corda_dir_location }}/node.conf owner={{ corda_user }} group={{ corda_user }} mode=0755
   when: corda_version|version_compare('3','>=')
 
 - name: Install config file (version 1 and 2)
