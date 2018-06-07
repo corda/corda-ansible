@@ -7,7 +7,6 @@ Type=simple
 User={{ corda_user }}
 WorkingDirectory={{ corda_dir_location }}
 ExecStart=/usr/bin/java {{ corda_java_options }} -jar {{ corda_dir_location }}/corda.jar
-Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
