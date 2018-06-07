@@ -28,8 +28,7 @@ extraAdvertisedServiceIds: [ "" ]
 useHTTPS : false
 devMode : {{ corda_devmode }}
 
-{% if corda_rps == "enabled" %}
-
+{% if corda_rpc == "enable" %}
 rpcSettings = {
     useSsl = false
     standAloneBroker = false
@@ -45,6 +44,8 @@ rpcUsers=[
     ]
   }
 ]
+{% endif %}
+
 {% if not corda_devmode | bool %}
 certificateSigningService="{{ corda_doorman_url }}"
 {% endif %}
