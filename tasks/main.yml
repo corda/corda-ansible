@@ -25,13 +25,17 @@
     - restart corda
     - restart corda-webserver
 
-- name: Install config file
+- name: Install config file (version 3 )
   template: src=node.conf.j2 dest={{ corda_dir_location }}/node.conf owner={{ corda_user }} group={{ corda_user }} mode=0755
-  when: corda_version|version_compare('1','>=')
+  when: corda_version|version_compare('3','>=')
+
+- name: Install config file (version 1 and 2)
+  template: src=node.conf.2.j2 dest={{ corda_dir_location }}/node.conf owner={{ corda_user }} group={{ corda_user }} mode=0755
+  when: corda_version|version_compare('1','>=') and corda_version|version_compare('3','<')
   notify: restart corda
 
 - name: Install config file (pre 1.0)
-  template: src=node.conf.old.j2 dest={{ corda_dir_location }}/node.conf owner={{ corda_user }} group={{ corda_user }} mode=0755
+  template: src=node.conf.old.1.j2 dest={{ corda_dir_location }}/node.conf owner={{ corda_user }} group={{ corda_user }} mode=0755
   when: corda_version|version_compare('1','<')
   notify: restart corda
 

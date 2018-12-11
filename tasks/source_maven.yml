@@ -1,13 +1,38 @@
 ---
-- name: Get corda jars from Maven Central
+- name: Get corda jars from Maven Central (pre 3.0)
   maven_artifact: group_id=net.corda artifact_id={{ item }} version={{ corda_version }} extension=jar dest={{ corda_dir_location }}/{{ item }}.jar repository_url='http://repo1.maven.org/maven2'
   with_items:
     - corda
     - corda-webserver
+  when: corda_version|version_compare('3','<')
   notify:
     - start corda
     - start corda-webserver
   # module has a bug and repository_url is necessary for now
+
+- name: Get corda jars from Maven Central (3.0)
+  maven_artifact: group_id=net.corda artifact_id={{ item }} version=corda-{{ corda_version }} extension=jar dest={{ corda_dir_location }}/{{ item }}.jar repository_url='http://repo1.maven.org/maven2'
+  with_items:
+    - corda
+    - corda-webserver
+  when: corda_version|version_compare('3.0','=')
+  notify:
+    - start corda
+    - start corda-webserver
+    # module has a bug and repository_url is necessary for now
+
+- name: Get corda jars from Maven Central (post 3.0)
+  maven_artifact: group_id=net.corda artifact_id={{ item }} version={{ corda_version }}-corda extension=jar dest={{ corda_dir_location }}/{{ item }}.jar repository_url='http://repo1.maven.org/maven2'
+  with_items:
+    - corda
+    - corda-webserver
+  when: corda_version|version_compare('3.1','>=')
+  notify:
+    - start corda
+    - start corda-webserver
+  # module has a bug and repository_url is necessary for now
+
+
 
 - name: Ensure good ownership for files
   file: path={{ corda_dir_location }}/{{ item }}.jar owner={{ corda_user }} group={{ corda_user }} mode=0755

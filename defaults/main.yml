@@ -21,6 +21,7 @@ corda_org_unit: Corda
 corda_admin_email: "change_it@corda.net"
 corda_legal_name: "Corda Test - Change it"
 corda_role: node
+corda_rpc: disable
 corda_notary_type: "non_validating"
 corda_networkmap_address: "example-change.it"
 corda_networkmap_name: "O=Corda, L=London, C=GB"
