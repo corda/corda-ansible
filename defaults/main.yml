@@ -22,6 +22,7 @@ corda_admin_email: "change_it@corda.net" # WHERE?
 corda_role: node # NODE
 corda_notary_type: "non_validating" # NODE
 corda_devmode: !!str true # NODE
+corda_initial_registration: false
 corda_doorman_url: "example-change.it" # NODE
 corda_networkmap_url: "example-change.it" #NODE
 corda_key_store_password: "THE BEST TO PUT INTO VAULT"
