@@ -8,23 +8,48 @@
   when: ansible_distribution == 'CentOS'
 
 - name: Create group
-  group: name={{ corda_user }} state=present
+  group:
+    name: "{{ corda_user }}"
+    state: present
 
 - name: Create user
-  user: name={{ corda_user }} state=present groups={{ corda_user }}
+  user:
+    name: "{{ corda_user }}"
+    state "present"
+    groups "{{ corda_user }}"
+    shell: /bin/false
 
-- name: Prepare Corda directory
-  file: path={{ corda_dir_location }} state=directory owner={{ corda_user }} group={{ corda_user }} mode=0755
+- name: Prepare Corda directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ corda_user }}"
+    group: "{{ corda_user }}"
+    mode: 0755
+    loop:
+      - "{{ corda_dir_location }}"
+      - "{{ corda_dir_location }}/certificates"
 
 - name: Install systemd startup file
-  template: src={{ item }}.service.j2 dest=/etc/systemd/system/{{ item }}.service owner=root group=root mode=0755
+  template:
+    src: "{{ item }}.service.j2"
+    dest: /etc/systemd/system/{{ item }}.service
+    owner: root
+    group: root
+    mode: 0755
   with_items:
     - corda
   notify:
     - restart corda
 
 - name: Install config file (version 3+)
-  template: src=node.conf.j2 dest={{ corda_dir_location }}/node.conf owner={{ corda_user }} group={{ corda_user }} mode=0755
+  template:
+    src:
+      node.conf.j2
+      dest: "{{ corda_dir_location }}/node.conf"
+      owner: "{{ corda_user }}"
+      group: "{{ corda_user }}"
+      mode: 0755
   when: corda_version|version_compare('3','>=')
 
 # For jars from Maven Central
@@ -35,3 +60,11 @@
 - include: source_local.yml
   when: corda_source == "local"
 
+- name: Copy network-truststore
+  copy:
+    src: "{{ corda_local }}/network-root-truststore.jks"
+    dest: "{{ corda_dir_location }}/certificates/"
+    owner: "{{ corda_user }}"
+    group: "{{ corda_user }}"
+    mode: 600
+  when: corda_devmode
