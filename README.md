@@ -57,9 +57,9 @@ This is a summary of the actions performed by Ansible:
 
 - Install necessary packages (including OpenJDK from zulu.org by default)
 - Create a user and a directory for Corda
-- Create the systemd configuration for Corda node and webserver
+- Create the systemd configuration for Corda node
 - Prepare Corda configuration file (*node.conf*)
-- Install Corda jars (node and webserver) either from Maven Central, or from your local machine.
+- Install Corda jars (node) either from Maven Central, or from your local machine.
 
 
 ## Limitations

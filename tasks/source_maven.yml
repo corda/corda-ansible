@@ -12,8 +12,6 @@
   file: path={{ corda_dir_location }}/{{ item }}.jar owner={{ corda_user }} group={{ corda_user }} mode=0755
   with_items:
     - corda
-    - corda-webserver
   notify:
     - start corda
-    - start corda-webserver
 
