@@ -74,5 +74,7 @@
     chdir: "{{ corda_dir_location }}"
   become: true
   become_user: "{{ corda_user }}"
+  notify:
+    - start corda
   when: not corda_devmode|bool and corda_initial_registration
 
