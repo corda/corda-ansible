@@ -18,16 +18,16 @@
   apt:
     pkg: "{{ item }}"
     state: present
-  with_items:
+  loop:
     - ntp
 
 - name: Install OpenJDK (Zulu build)
   apt:
     pkg: "{{ item }}"
     state: present
-  when: corda_java == "openjdk"
-  with_items:
+  loop:
     - zulu-8
+  when: corda_java == "openjdk"
 
 - name: Install LXML (required for Maven Central download)
   apt:

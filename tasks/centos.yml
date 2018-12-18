@@ -19,9 +19,9 @@
     pkg: "{{ item }}"
     state: present
     update_cache: true
-  when: corda_java == "openjdk"
-  with_items:
+  loop:
     - zulu-8
+  when: corda_java == "openjdk"
 
 - name: Install LXML (required for Maven Central download)
   yum:

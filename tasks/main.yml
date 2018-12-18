@@ -26,7 +26,7 @@
     owner: "{{ corda_user }}"
     group: "{{ corda_user }}"
     mode: 0755
-    loop:
+  loop:
       - "{{ corda_dir_location }}"
       - "{{ corda_dir_location }}/certificates"
 
@@ -37,7 +37,7 @@
     owner: root
     group: root
     mode: 0755
-  with_items:
+  loop:
     - corda
   notify:
     - restart corda

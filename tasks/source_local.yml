@@ -6,7 +6,7 @@
     owner: "{{ corda_user }}"
     group: "{{ corda_user }}"
     mode: 755
-  with_items:
+  loop:
     - corda.jar
   notify:
     - start corda

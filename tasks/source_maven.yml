@@ -7,7 +7,7 @@
     extension: jar
     dest: "{{ corda_dir_location }}/{{ item }}.jar"
     repository_url: "http://repo1.maven.org/maven2"
-  with_items:
+  loop:
     - corda
   when: corda_version|version_compare('3.1','>=')
   notify:
@@ -20,7 +20,7 @@
     owner: "{{ corda_user }}"
     group: "{{ corda_user }}"
     mode: 0755
-  with_items:
+  loop:
     - corda
   notify:
     - start corda
