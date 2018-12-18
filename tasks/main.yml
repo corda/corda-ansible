@@ -15,8 +15,8 @@
 - name: Create user
   user:
     name: "{{ corda_user }}"
-    state "present"
     groups "{{ corda_user }}"
+    state: present
     shell: /bin/false
 
 - name: Prepare Corda directories
