@@ -15,7 +15,7 @@
 - name: Create user
   user:
     name: "{{ corda_user }}"
-    groups "{{ corda_user }}"
+    groups: "{{ corda_user }}"
     state: present
     shell: /bin/false
 
