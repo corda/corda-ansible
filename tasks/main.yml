@@ -61,7 +61,7 @@
 
 - name: Copy network-truststore
   copy:
-    src: "{{ corda_local }}/network-root-truststore.jks"
+    src: "{{ corda_local_path }}/network-root-truststore.jks"
     dest: "{{ corda_dir_location }}/certificates/"
     owner: "{{ corda_user }}"
     group: "{{ corda_user }}"
