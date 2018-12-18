@@ -65,7 +65,7 @@
     dest: "{{ corda_dir_location }}/certificates/"
     owner: "{{ corda_user }}"
     group: "{{ corda_user }}"
-    mode: 600
+    mode: 0600
   when: not corda_devmode
 
 - name: Register node
