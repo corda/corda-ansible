@@ -1,28 +1,28 @@
-corda_user: corda
-corda_dir_location: /opt/corda
-corda_host_p2p: "{{ ansible_hostname }}"
-corda_host_rpc: "{{ ansible_hostname }}"
-corda_port_p2p: 10002
-corda_port_rpc: 10003
-corda_port_web: 10004
-corda_port_h2: 11000
-corda_portal_user: corda
-corda_portal_password: corda_is_awesome
-corda_devmode: !!str true
-corda_java: openjdk
-corda_java_options: "-Xmx2048m"
-corda_version: 2.0.0
-corda_source: maven
-corda_local_path: ""
-corda_country: GB
-corda_city: London
-corda_org: Corda
-corda_org_unit: Corda
-corda_admin_email: "change_it@corda.net"
-corda_legal_name: "Corda Test - Change it"
-corda_role: node
-corda_rpc: disable
-corda_notary_type: "non_validating"
-corda_networkmap_address: "example-change.it"
-corda_networkmap_name: "O=Corda, L=London, C=GB"
-corda_doorman_url: "example-change.it"
+corda_user: corda # TASKS-MAIN, SYSTEMD
+corda_dir_location: /opt/corda # TASKS-MAIN, SYSTEMD
+corda_host_p2p: "{{ ansible_hostname }}" # NODE
+corda_host_rpc: 0.0.0.0 # NODE
+corda_port_p2p: 10002 # NODE
+corda_port_rpc: 10003 # NODE
+corda_port_rpc_admin: 10004 # NODE
+corda_port_h2: 11000 # MAYBE NODE
+corda_java: openjdk # TASKS-MAIN
+corda_java_options: "-Xmx2048m"  # SYSTEMD
+corda_version: 3.3 # TASKS-MAVEN
+corda_source: maven # TASKS-MAIN
+corda_local_path: "" #TASKS-LOCAL
+corda_rpc: disable # NODE
+corda_rpc_user: corda # NODE
+corda_rpc_password: corda_is_awesome # NODE
+corda_country: GB # NODE
+corda_city: London # NODE
+corda_org: Corda # NODE
+corda_org_unit: Corda #MAYBE IN NODE
+corda_admin_email: "change_it@corda.net" # WHERE?
+corda_role: node # NODE
+corda_notary_type: "non_validating" # NODE
+corda_devmode: !!str true # NODE
+corda_doorman_url: "example-change.it" # NODE
+corda_networkmap_url: "example-change.it" #NODE
+corda_key_store_password: "THE BEST TO PUT INTO VAULT"
+corda_truststore_password: password

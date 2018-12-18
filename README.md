@@ -28,7 +28,7 @@ All variables are defined in *defaults/main.yml*. Some of them should be changed
 | corda_devmode | "true" |
 | corda_java | openjdk |
 | corda_java_options | -Xmx2048 |
-| corda_version | 2.0.0 |
+| corda_version | 3.1 |
 | corda_source | maven |
 | corda_local_path | "" |
 | corda_country | GB |

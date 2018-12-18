@@ -4,8 +4,8 @@
   become: True
   vars:
     corda_source: maven
-    corda_version: 1.0.0
+    corda_version: 3.3
     corda_networkmap_address: '10.10.10.103'
-    corda_networkmap_name: "O=Corda S.A.,L=Warsaw, C=PL"
+    corda_networkmap_name: "O=Corda Test,L=Warsaw, C=PL"
   roles:
     - corda-ansible
