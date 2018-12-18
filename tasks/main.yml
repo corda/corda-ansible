@@ -44,8 +44,7 @@
 
 - name: Install config file (version 3+)
   template:
-    src:
-      node.conf.j2
+    src: node.conf.j2
       dest: "{{ corda_dir_location }}/node.conf"
       owner: "{{ corda_user }}"
       group: "{{ corda_user }}"
