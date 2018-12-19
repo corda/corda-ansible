@@ -17,6 +17,7 @@
     name: "{{ corda_user }}"
     groups: "{{ corda_user }}"
     state: present
+    createhome: no
     shell: /bin/false
 
 - name: Prepare Corda directories
