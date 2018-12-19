@@ -1,10 +1,10 @@
 p2pAddress = "{{ corda_host_p2p }}:{{ corda_port_p2p }}"
-myLegalName = "O={{ corda_org }}, L={{ corda_city }}, C={{ corda_country }}"
+myLegalName = "O={{ corda_name_org }}, L={{ corda_name_city }}, C={{ corda_name_country }}"
 emailAddress = "{{ corda_admin_email }}"
 
 
-keyStorePassword = {{ corda_key_store_password }}
-trustStorePassword = {{ corda_truststore_password }}
+keyStorePassword = {{ corda_password_keystore }}
+trustStorePassword = {{ corda_password_truststore }}
 
 dataSourceProperties {
     dataSourceClassName = org.h2.jdbcx.JdbcDataSource
@@ -43,7 +43,7 @@ notary  { validating = false }
 
 {% if not corda_devmode | bool %}
 networkServices {
-  doormanURL = "{{ corda_doorman_url }}"
-  networkMapURL = "{{ corda_networkmap_url }}"
+  doormanURL = "{{ corda_url_doorman }}"
+  networkMapURL = "{{ corda_url_networkmap }}"
 }
 {% endif %}

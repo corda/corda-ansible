@@ -1,29 +1,29 @@
-corda_user: corda
+corda_admin_email: "change_it@corda.net"
+corda_devmode: !!str true
 corda_dir_location: /opt/corda
 corda_host_p2p: "{{ ansible_hostname }}"
-corda_host_rpc: 0.0.0.0
+corda_host_rpc: "0.0.0.0"
+corda_java: openjdk
+corda_java_options: "-Xmx2048m" 
+corda_local_path: ""
+corda_initial_registration: false
+corda_name_country: GB
+corda_name_city: London
+corda_name_org: Corda
+corda_name_org_unit: Corda
+corda_notary_type: "non_validating"
+corda_password_key_store: "THE BEST TO PUT INTO VAULT"
+corda_password_truststore: password
 corda_port_p2p: 10002
 corda_port_rpc: 10003
 corda_port_rpc_admin: 10004
 corda_port_h2: 11000
-corda_java: openjdk
-corda_java_options: "-Xmx2048m" 
-corda_version: 3.3
-corda_source: maven
-corda_local_path: ""
+corda_role: node
 corda_rpc: disable
 corda_rpc_user: corda
 corda_rpc_password: corda_is_awesome
-corda_country: GB
-corda_city: London
-corda_org: Corda
-corda_org_unit: Corda
-corda_admin_email: "change_it@corda.net"
-corda_role: node
-corda_notary_type: "non_validating"
-corda_devmode: !!str true
-corda_initial_registration: false
-corda_doorman_url: "example-change.it"
-corda_networkmap_url: "example-change.it"
-corda_key_store_password: "THE BEST TO PUT INTO VAULT"
-corda_truststore_password: password
+corda_source: maven
+corda_url_doorman_url: "example-change.it"
+corda_url_networkmap_url: "example-change.it"
+corda_user: corda
+corda_version: 3.3

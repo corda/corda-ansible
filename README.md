@@ -13,42 +13,47 @@ This role provides a minimal set of steps required to install Corda on a Linux m
 
 All variables are defined in *defaults/main.yml*. Some of them should be changed from the default value.
 
-|  variable | default value |
-| --- | --- |
-| corda_user | corda |
-| corda_dir_location | /opt/corda |
-| corda_host_p2p | "{{ ansible_hostname }}" |
-| corda_host_rpc | "{{ ansible_hostname }}" |
-| corda_port_p2p | 10002 |
-| corda_port_rpc | 10003 |
-| corda_port_web | 10004 |
-| corda_port_h2 | 11000 |
-| corda_portal_user | corda |
-| corda_portal_password | corda_is_awesome |
-| corda_devmode | "true" |
-| corda_java | openjdk |
-| corda_java_options | -Xmx2048 |
-| corda_version | 3.1 |
-| corda_source | maven |
-| corda_local_path | "" |
-| corda_country | GB |
-| corda_city | London |
-| corda_org | Corda |
-| corda_org_unit | Corda |
-| corda_admin_email | "change_it@corda.net" |
-| corda_role | node |
-| corda_notary_type | "non_validating" |
-| corda_networkmap_address | "example-change.it" |
-| corda_networkmap_name | "O=Corda, L=London, C=GB" |
-| corda_doorman_url | "example-change.it" |
-| corda_legal_name | (_deprecated in 1.0_) "Corda Test Node - Change it" |
+|  variable | default value | usage |
+| --- | --- | --- |
+| corda_admin_email | "corda@example.com" | contact email address sent to Zone Operator |
+| corda_devmode | "true" | define if node is in 'development mode' (see notes) |
+| corda_dir_location | /opt/corda | directory where Corda is going to be installed |
+| corda_host_p2p | "{{ ansible_hostname }}" | address node exported to Network Map |
+| corda_host_rpc | 0.0.0.0 | local address rpc binds to |
+| corda_initial_registration | false | define if register node with Doorman (see notes) |
+| corda_java | openjdk | What java to use (see notes) |
+| corda_java_options | -Xmx2048 | extra parameters for Java |
+| corda_local_path | "" | path to local files you might copy over (see notes) |
+| corda_name_city | London | part of Legal Name in node.conf |
+| corda_name_country | GB | part of Legal Name in node.conf |
+| corda_name_org | Corda | part of Legal Name in node.conf |
+| corda_name_org_unit | Corda | (not in use) can be part of Legal Name in node.conf |
+| corda_notary_type | "non_validating" | type of notary (see notes) |
+| corda_password_keystore |  | value for node keystore, should be in encrypted with Ansible Vault |
+| corda_password_truststore | password | password for truststore shared by Zone operator |
+| corda_port_p2p | 10002 | port for P2P connections |
+| corda_port_rpc | 10003 | port RPC binds to |
+| corda_port_rpc_admin | 10004 | port RPC binds to for Admin connections |
+| corda_port_h2 | 11000 | port for local H2 DB |
+| corda_role | node | what role should have corda.jar |
+| corda_rpc | disable | define if RPC should be enabled (see notes)|
+| corda_rpc_user | corda | user for RPC connection |
+| corda_rpc_password | corda_is_awesome | password for RPC user |
+| corda_source | maven | source of corda.jar (see notes) |
+| corda_url_doorman | "http://example-change.it" | URL for Zone Doorman (not for devmode) |
+| corda_url_networkmap | "http://example-change.it" | URL for Zone Network Map (not for devmode ) |
+| corda_user | corda | name for UNIX user dedicated to run corda |
+| corda_version | 3.3 | version of corda to install |
 
-Please note: 
-- If you are not sure which version to use please visit [Maven Central](http://repo1.maven.org/maven2/net/corda/corda/).
-- *corda_devmode* is a string not a boolean.
-- *corda_role* has to be be either **node** or **notary**
+### Notes ###
+- *corda_devmode* is a string not a boolean, so to change set it with: **corda_devmode: !!str false**
+- if *corda_initial_registration* is set to'true' extra step registring node Doorman defined in corda_url_doorman is going to be performed. This is not for devmode
+- setting *corda_java* to a value other than openjdk will prevent the role from installing OpenJDK from zulu.org (no Java VM will be installed)
+- *corda_local_path* can be use to point where files e.g. corda.jar or network-root-truststore.jks are located on local machine. It can be ignore for most cases (other than initial registration or using 'local' as a source)
 - *corda_notary_type* can be either **validating** or **non_validating**
-- setting *corda_java* to a value other than openjdk will prevent the role installing OpenJDK from zulu.org (no Java VM will be installed)
+- *corda_role* has to be be either **node** or **notary**
+- *corda_rpc* is a string and should be **enabled** or **disable**
+- *corda_source* can be 'local' (e.g. when you would like to use this role with Corda Enteprise, or you own Corda build) and 'maven'. If you are not sure which version to download please visit [Maven Central](http://repo1.maven.org/maven2/net/corda/corda/).
 
 
 ## Corda installation tasks carried by Ansible
@@ -59,7 +64,8 @@ This is a summary of the actions performed by Ansible:
 - Create a user and a directory for Corda
 - Create the systemd configuration for Corda node
 - Prepare Corda configuration file (*node.conf*)
-- Install Corda jars (node) either from Maven Central, or from your local machine.
+- Install Corda jar (node) either from Maven Central, or from your local machine.
+- Optional node can be register with Doorman
 
 
 ## Limitations
