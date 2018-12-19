@@ -67,7 +67,7 @@
     owner: "{{ corda_user }}"
     group: "{{ corda_user }}"
     mode: 0600
-  when: not corda_devmode
+  when: not corda_devmode|bool and corda_initial_registration
 
 - name: Register node
   shell: "java -jar corda.jar --initial-registration --network-root-truststore-password {{ corda_password_truststore }}"
