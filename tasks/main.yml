@@ -69,7 +69,7 @@
   when: not corda_devmode
 
 - name: Register node
-  shell: "java -jar corda.jar --initial-registration --network-root-truststore-password {{ corda_truststore_password }}"
+  shell: "java -jar corda.jar --initial-registration --network-root-truststore-password {{ corda_password_truststore }}"
   args:
     chdir: "{{ corda_dir_location }}"
   become: true
