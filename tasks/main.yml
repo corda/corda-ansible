@@ -1,4 +1,9 @@
 ---
+- name: Check that password for keystore is defined
+  assert:
+    that: corda_password_keystore is defined
+    msg: "Having password to keystore in config file is not idea, but for now please set 'corda_password_keystore' to a value"
+
 # For Ubuntu
 - include: ubuntu.yml
   when: ansible_distribution == 'Ubuntu'
