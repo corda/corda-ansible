@@ -2,7 +2,7 @@
 - name: Add Zulu.org JDK repository key
   apt_key:
     keyserver: keyserver.ubuntu.com
-    id: 0x219BD9C9
+    id: "0xB1998361219BD9C9"
   when: corda_java == "openjdk"
 
 - name: Add Zulu.org JDK repository
