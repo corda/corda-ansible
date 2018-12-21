@@ -15,7 +15,7 @@ dataSourceProperties {
 
 devMode = {{ corda_devmode }}
 
-{% if corda_rpc == "enable" %}
+{% if corda_rpc == "enable" or corda_version >= 4.0 %}
 rpcSettings {
     useSsl = false
     standAloneBroker = false
