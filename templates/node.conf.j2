@@ -1,44 +1,31 @@
-basedir : "{{ corda_dir_location }}"
-p2pAddress : "{{ corda_host_p2p }}:{{ corda_port_p2p }}"
-webAddress : "0.0.0.0:{{ corda_port_web }}"
-h2port : {{ corda_port_h2 }}
-emailAddress : "{{ corda_admin_email }}"
-myLegalName : "O={{ corda_org }}, L={{ corda_city }}, C={{ corda_country }}"
+p2pAddress = "{{ corda_host_p2p }}:{{ corda_port_p2p }}"
+myLegalName = "O={{ corda_name_org }}, L={{ corda_name_city }}, C={{ corda_name_country }}"
+emailAddress = "{{ corda_admin_email }}"
 
-keyStorePassword : "cordacadevpass"
-trustStorePassword : "trustpass"
 
-dataSourceProperties : {
-    dataSourceClassName : org.h2.jdbcx.JdbcDataSource
-    "dataSource.url" : "jdbc:h2:file:"${baseDirectory}"/persistence"
-    "dataSource.user" : sa
-    "dataSource.password" : ""
+keyStorePassword = {{ corda_password_keystore }}
+trustStorePassword = {{ corda_password_truststore }}
+
+dataSourceProperties {
+    dataSourceClassName = org.h2.jdbcx.JdbcDataSource
+    dataSource.url = "jdbc:h2:file:"${baseDirectory}"/persistence"
+    dataSource.user = sa
+    dataSource.password = ""
 }
 
-{% if corda_role == "notary" %}
-{% if corda_notary_type == "validating" %}
-notary : { validating : true }
-{% elif corda_notary_type == "non_validating" %}
-notary : { validating : false }
-{% endif %}
-{% else %}
-extraAdvertisedServiceIds: [ "" ]
-{% endif %}
-
-useHTTPS : false
-devMode : {{ corda_devmode }}
+devMode = {{ corda_devmode }}
 
 {% if corda_rpc == "enable" %}
-rpcSettings = {
+rpcSettings {
     useSsl = false
     standAloneBroker = false
-    address : "{{ corda_host_rpc }}:{{ corda_port_rpc }}"
-    adminAddress : "{{ corda_host_rpc }}:{{ corda_port_rpc_admin }}"
+    address  = "{{ corda_host_rpc }}:{{ corda_port_rpc }}"
+    adminAddress = "{{ corda_host_rpc }}:{{ corda_port_rpc_admin }}"
 }
-rpcUsers=[
+rpcUsers = [
   {
-    user={{ corda_portal_user }}
-    password={{ corda_portal_password }}
+    user={{ corda_rpc_user }}
+    password={{ corda_rpc_password }}
     permissions=[
       ALL
     ]
@@ -46,6 +33,17 @@ rpcUsers=[
 ]
 {% endif %}
 
+{% if corda_role == "notary" %}
+	{% if corda_notary_type == "validating" %}
+notary  { validating = true }
+	{% elif corda_notary_type == "non_validating" %}
+notary  { validating = false }
+	{% endif %}
+{% endif %}
+
 {% if not corda_devmode | bool %}
-certificateSigningService="{{ corda_doorman_url }}"
+networkServices {
+  doormanURL = "{{ corda_url_doorman }}"
+  networkMapURL = "{{ corda_url_networkmap }}"
+}
 {% endif %}

@@ -1,4 +1,9 @@
 ---
+- name: Check that password for keystore is defined
+  assert:
+    that: corda_password_keystore is defined
+    msg: "Having password to keystore in config file is not idea, but for now please set 'corda_password_keystore' to a value"
+
 # For Ubuntu
 - include: ubuntu.yml
   when: ansible_distribution == 'Ubuntu'
@@ -8,36 +13,49 @@
   when: ansible_distribution == 'CentOS'
 
 - name: Create group
-  group: name={{ corda_user }} state=present
+  group:
+    name: "{{ corda_user }}"
+    state: present
 
 - name: Create user
-  user: name={{ corda_user }} state=present groups={{ corda_user }}
+  user:
+    name: "{{ corda_user }}"
+    groups: "{{ corda_user }}"
+    state: present
+    createhome: no
+    shell: /bin/false
 
-- name: Prepare Corda directory
-  file: path={{ corda_dir_location }} state=directory owner={{ corda_user }} group={{ corda_user }} mode=0755
+- name: Prepare Corda directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ corda_user }}"
+    group: "{{ corda_user }}"
+    mode: 0755
+  loop:
+      - "{{ corda_dir_location }}"
+      - "{{ corda_dir_location }}/certificates"
 
 - name: Install systemd startup file
-  template: src={{ item }}.service.j2 dest=/etc/systemd/system/{{ item }}.service owner=root group=root mode=0755
-  with_items:
+  template:
+    src: "{{ item }}.service.j2"
+    dest: /etc/systemd/system/{{ item }}.service
+    owner: root
+    group: root
+    mode: 0755
+  loop:
     - corda
-    - corda-webserver
   notify:
     - restart corda
-    - restart corda-webserver
 
-- name: Install config file (version 3 )
-  template: src=node.conf.j2 dest={{ corda_dir_location }}/node.conf owner={{ corda_user }} group={{ corda_user }} mode=0755
+- name: Install config file (version 3+)
+  template:
+    src: node.conf.j2
+    dest: "{{ corda_dir_location }}/node.conf"
+    owner: "{{ corda_user }}"
+    group: "{{ corda_user }}"
+    mode: 0755
   when: corda_version|version_compare('3','>=')
-
-- name: Install config file (version 1 and 2)
-  template: src=node.conf.2.j2 dest={{ corda_dir_location }}/node.conf owner={{ corda_user }} group={{ corda_user }} mode=0755
-  when: corda_version|version_compare('1','>=') and corda_version|version_compare('3','<')
-  notify: restart corda
-
-- name: Install config file (pre 1.0)
-  template: src=node.conf.old.1.j2 dest={{ corda_dir_location }}/node.conf owner={{ corda_user }} group={{ corda_user }} mode=0755
-  when: corda_version|version_compare('1','<')
-  notify: restart corda
 
 # For jars from Maven Central
 - include: source_maven.yml
@@ -46,4 +64,23 @@
 # For jars from local directory
 - include: source_local.yml
   when: corda_source == "local"
+
+- name: Copy network-truststore
+  copy:
+    src: "{{ corda_local_path }}/network-root-truststore.jks"
+    dest: "{{ corda_dir_location }}/certificates/"
+    owner: "{{ corda_user }}"
+    group: "{{ corda_user }}"
+    mode: 0600
+  when: not corda_devmode|bool and corda_initial_registration
+
+- name: Register node
+  shell: "java -jar corda.jar --initial-registration --network-root-truststore-password {{ corda_password_truststore }}"
+  args:
+    chdir: "{{ corda_dir_location }}"
+  become: true
+  become_user: "{{ corda_user }}"
+  notify:
+    - start corda
+  when: not corda_devmode|bool and corda_initial_registration
 

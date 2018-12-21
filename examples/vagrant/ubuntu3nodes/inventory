@@ -1,11 +1,8 @@
 [nodes]
-10.10.10.101 corda_country=GB corda_city=London corda_org="Corda Ltd." corda_admin_email=test@test.net corda_role=node
+10.10.10.101 corda_country=GB corda_city=London corda_org="Test" corda_admin_email=test@example.com corda_role=node
 
 [notary]
 10.10.10.102 corda_country=FR corda_city=Paris corda_org=Notary corda_admin_email=test@test.net  corda_role=notary corda_notary_type="non_validating"
-
-[nameserver]
-10.10.10.103 corda_country=PL corda_city=Warsaw corda_org="Corda S.A" corda_admin_email=test@test.net  corda_role=networkmap
 
 [corda:children]
 nodes
