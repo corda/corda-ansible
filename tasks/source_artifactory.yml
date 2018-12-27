@@ -1,0 +1,12 @@
+---
+- name: Get corda jars from Artifactory (for SNAPSHOTS)
+  get_url:
+    url: 'https://ci-artifactory.corda.r3cev.com/artifactory/corda-dev/net/corda/corda/{{ corda_version }}/corda-{{ corda_version }}.jar'
+    dest: "{{ corda_dir_location }}/{{ item }}.jar"
+    owner: "{{ corda_user }}"
+    group: "{{ corda_user }}"
+    mode: 0755
+  loop:
+    - corda
+  notify:
+    - start corda

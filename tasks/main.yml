@@ -65,6 +65,10 @@
 - include: source_local.yml
   when: corda_source == "local"
 
+# For jars from Artifactory (snapshots)
+- include: source_artifactory.yml
+  when: corda_source == "artifactory"
+
 - name: Copy network-truststore
   copy:
     src: "{{ corda_local_path }}/network-root-truststore.jks"
