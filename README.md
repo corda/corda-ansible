@@ -62,7 +62,7 @@ All variables are defined in *defaults/main.yml*. Some of them should be changed
 - *corda_source* can be 'local' (e.g. when you would like to use this role with Corda Enteprise, or you own Corda build), 'maven' for official builds or 'artifactory' to download daily snapshot. If you are not sure which version to download please visit [Maven Central](http://repo1.maven.org/maven2/net/corda/corda/).
 
 
-## Old Example (priori to version 3)
+## Old Example (working with old NetworkMap - version up to 2)
 
 - For a sensible scenario install at least 3 Ubuntu 16.04 or CentOS 7 virtual or physical servers. There is a Vagrant example  with 3 Ubuntu nodes attached to this repository in (examples/vagrant/ubuntu3nodes).
 - Modify the **hosts** file and fill it with valid information about *city* (just for location on a node on network map), *legal node name* (for *network map*), *email address* and node *role*. This information is going to be used by Ansible to create a valid *node.conf* file.
