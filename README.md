@@ -1,13 +1,18 @@
 # corda-ansible
 
 ## Description
-This role provides a minimal set of steps required to install Corda on a Linux machine (currently tested only with Ubuntu and CentOS) along with all necessary templates and an example inventory file (in the *hosts* file).
+This role provides a minimal set of steps required to install Corda on a Linux machine (currently tested with Ubuntu and CentOS) along with all necessary templates (Corda node.conf and systemD script).
 
-## Simple Usage
+## Corda installation tasks carried by Ansible
 
-- For a sensible scenario install at least 3 Ubuntu 16.04 or CentOS 7 virtual or physical servers. There is a Vagrant example  with 3 Ubuntu nodes attached to this repository in (examples/vagrant/ubuntu3nodes).
-- Modify the **hosts** file and fill it with valid information about *city* (just for location on a node on network map), *legal node name* (for *network map*), *email address* and node *role*. This information is going to be used by Ansible to create a valid *node.conf* file.
-- run `ansible-playbook -i hosts corda.yml`
+This is a summary of the actions performed by Ansible:
+
+- Install necessary packages (including OpenJDK from zulu.org by default)
+- Create a user and a directory for Corda
+- Create the systemd configuration for Corda node
+- Prepare Corda configuration file (*node.conf*)
+- Install Corda jar (node) either from Maven Central, from your local machine (e.g. to use with Corda Enterprise) or snapshot from R3 artifactory
+- Optional node can be register with Doorman
 
 ## Role Variables
 
@@ -46,6 +51,7 @@ All variables are defined in *defaults/main.yml*. Some of them should be changed
 | corda_version | 3.3 | version of corda to install |
 
 ### Notes ###
+
 - *corda_devmode* is a string not a boolean, so to change set it with: **corda_devmode: !!str false**
 - if *corda_initial_registration* is set to'true' extra step registring node Doorman defined in corda_url_doorman is going to be performed. This is not for devmode
 - setting *corda_java* to a value other than openjdk will prevent the role from installing OpenJDK from zulu.org (no Java VM will be installed)
@@ -53,22 +59,16 @@ All variables are defined in *defaults/main.yml*. Some of them should be changed
 - *corda_notary_type* can be either **validating** or **non_validating**
 - *corda_role* has to be be either **node** or **notary**
 - *corda_rpc* is a string and should be **enabled** or **disable**
-- *corda_source* can be 'local' (e.g. when you would like to use this role with Corda Enteprise, or you own Corda build) and 'maven'. If you are not sure which version to download please visit [Maven Central](http://repo1.maven.org/maven2/net/corda/corda/).
+- *corda_source* can be 'local' (e.g. when you would like to use this role with Corda Enteprise, or you own Corda build), 'maven' for official builds or 'artifactory' to download daily snapshot. If you are not sure which version to download please visit [Maven Central](http://repo1.maven.org/maven2/net/corda/corda/).
 
 
-## Corda installation tasks carried by Ansible
+## Old Example (working with old NetworkMap - version up to 2)
 
-This is a summary of the actions performed by Ansible:
-
-- Install necessary packages (including OpenJDK from zulu.org by default)
-- Create a user and a directory for Corda
-- Create the systemd configuration for Corda node
-- Prepare Corda configuration file (*node.conf*)
-- Install Corda jar (node) either from Maven Central, or from your local machine.
-- Optional node can be register with Doorman
-
+- For a sensible scenario install at least 3 Ubuntu 16.04 or CentOS 7 virtual or physical servers. There is a Vagrant example  with 3 Ubuntu nodes attached to this repository in (examples/vagrant/ubuntu3nodes).
+- Modify the **hosts** file and fill it with valid information about *city* (just for location on a node on network map), *legal node name* (for *network map*), *email address* and node *role*. This information is going to be used by Ansible to create a valid *node.conf* file.
+- run `ansible-playbook -i hosts corda.yml`
 
 ## Limitations
 
-- tested with Ubuntu 16.04 only CentOS 7 (7.3) only
-- installs only OpenJDK from zulu.org (on request). However, Corda will use your machine's default Java VM. Therefore, if you installed Oracle JDK (e.g. using [ansiblebit/oracle-java](https://github.com/ansiblebit/oracle-java) role) and set it up as the default Java VM, Corda will use it.
+- tested with Ubuntu LTS (16.04/18.04) CentOS 7
+- installs OpenJDK from zulu.org. However, Corda will use your machine's default Java VM. Therefore, if you installed Oracle JDK (e.g. using [ansiblebit/oracle-java](https://github.com/ansiblebit/oracle-java) role) and set it up as the default Java VM, Corda will use it.
