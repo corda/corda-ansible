@@ -12,7 +12,10 @@
   when: corda_java == "openjdk"
 
 - name: Update APT cache
-  apt: update_cache=yes
+  apt:
+    update_cache: yes
+    cache_valid_time: '{{ 60*60*24 }}' # in seconds, and cache is valid for one day
+
 
 - name: Install os packages
   apt:
