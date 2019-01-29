@@ -24,17 +24,18 @@
   loop:
     - ntp
 
-- name: Install OpenJDK (Zulu build)
-  apt:
-    pkg: "{{ item }}"
-    state: present
-  loop:
-    - zulu-8
-  when: corda_java == "openjdk"
+# TODO: change that to assert there is a supported Java installed!
+#- name: Install OpenJDK (Zulu build)
+#  apt:
+#    pkg: "{{ item }}"
+#    state: present
+#  loop:
+#    - zulu-8
+#  when: corda_java == "openjdk"
 
 - name: Install LXML (required for Maven Central download)
   apt:
-    pkg: python-lxml
+    pkg: '{{ _corda_python_lxml_package_name }}'
     state: present
   when: corda_source == "maven"
 

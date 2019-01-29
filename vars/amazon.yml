@@ -1,0 +1,3 @@
+---
+# the name of the package with LXML bindings for Python specific for Amazon Linux
+_corda_python_lxml_package_name: python27-lxml

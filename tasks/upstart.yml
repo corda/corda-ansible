@@ -1,0 +1,12 @@
+---
+- name: Install upstart startup file
+  template:
+    src: "{{ item }}.init.j2"
+    dest: /etc/init/{{ item }}.conf
+    owner: root
+    group: root
+    mode: 0644
+  loop:
+    - corda
+  notify:
+    - restart corda

@@ -14,18 +14,18 @@
     state: present
   when: corda_java == "openjdk"
 
-- name: Install OpenJDK (Zulu build)
-  yum:
-    pkg: "{{ item }}"
-    state: present
-    update_cache: true
-  loop:
-    - zulu-8
-  when: corda_java == "openjdk"
+# TODO: change that to assert there is a supported Java installed!
+#- name: Install OpenJDK (Zulu build)
+#  yum:
+#    pkg: "{{ item }}"
+#    state: present
+#    update_cache: true
+#  loop:
+#    - zulu-8
+#  when: corda_java == "openjdk"
 
 - name: Install LXML (required for Maven Central download)
   yum:
-    pkg: python-lxml
+    pkg: '{{ _corda_python_lxml_package_name }}'
     state: present
   when: corda_source == "maven"
-

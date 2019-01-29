@@ -4,13 +4,19 @@
     that: corda_password_keystore is defined
     msg: "Having password to keystore in config file is not ideal, but for now please set 'corda_password_keystore' to a value"
 
+# Get the variables specific for Linux distributions
+- include_vars: '{{ item }}'
+  with_first_found:
+    - default.yml
+#    - "{{ ansible_distribution | lower }}.yml"
+
 # For Ubuntu
 - include: ubuntu.yml
-  when: ansible_distribution == 'Ubuntu'
+  when: (ansible_distribution | lower ) in ['ubuntu']
 
 # For Centos
 - include: centos.yml
-  when: ansible_distribution == 'CentOS'
+  when: (ansible_distribution | lower ) in ['centos', 'redhat', 'amazon']
 
 - name: Create group
   group:
@@ -36,22 +42,13 @@
       - "{{ corda_dir_location }}"
       - "{{ corda_dir_location }}/certificates"
 
-- name: Install systemd startup file
-  template:
-    src: "{{ item }}.service.j2"
-    dest: /etc/systemd/system/{{ item }}.service
-    owner: root
-    group: root
-    mode: 0755
-  loop:
-    - corda
-  notify:
-    - restart corda
+# Service manager specific configuration
+- include: '{{ ansible_service_mgr }}.yml'
 
 - name: Install config file (version 3+)
   template:
     src: node.conf.j2
-    dest: "{{ corda_dir_location }}/node.conf"
+    dest: "{{ corda_conf_location }}/node.conf"
     owner: "{{ corda_user }}"
     group: "{{ corda_user }}"
     mode: 0755

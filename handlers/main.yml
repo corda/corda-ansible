@@ -1,6 +1,12 @@
 ---
-- name: start corda
-  systemd: daemon_reload=yes name=corda enabled=yes state=started
+- name: reload systemd
+  become: yes
+  systemd: daemon_reload=yes
 
 - name: restart corda
-  systemd: daemon_reload=yes name=corda enabled=yes state=restarted
+  become: yes
+  service: name=corda state=restarted
+
+- name: start corda
+  become: yes
+  service: name=corda state=started

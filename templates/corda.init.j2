@@ -1,0 +1,10 @@
+description "Corda Node"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+respawn
+chdir {{ corda_dir_location | quote }}
+# FIXME `setuid corda` will fail since the version of upstart deployed to Amazon Linux is too old.
+# setuid corda
+exec su -s /bin/sh -c 'exec "$0" "$@"' {{ corda_user }} -- /usr/bin/java {{ corda_java_options }} -jar {{ corda_dir_location }}/corda.jar

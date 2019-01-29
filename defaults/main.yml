@@ -1,9 +1,10 @@
 corda_admin_email: "change_it@corda.net"
 corda_devmode: !!str true
 corda_dir_location: /opt/corda
+corda_conf_location: '{{ corda_dir_location }}'
 corda_host_p2p: "{{ ansible_hostname }}"
 corda_host_rpc: "0.0.0.0"
-corda_java: openjdk
+corda_java: Null
 corda_java_options: "-Xmx2048m"
 corda_local_path: ""
 corda_initial_registration: false
