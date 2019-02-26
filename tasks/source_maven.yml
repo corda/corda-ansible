@@ -3,7 +3,7 @@
   maven_artifact:
     group_id: net.corda
     artifact_id: "{{ item }}"
-    version: "{{ corda_version }}-corda"
+    version: "{{ corda_version }}"
     extension: jar
     dest: "{{ corda_dir_location }}/{{ item }}.jar"
     repository_url: "http://repo1.maven.org/maven2"

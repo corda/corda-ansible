@@ -43,7 +43,12 @@
       - "{{ corda_dir_location }}/certificates"
 
 # Service manager specific configuration
-- include: '{{ ansible_service_mgr }}.yml'
+- include_tasks: '{{ service_mgr }}'
+  loop_control:
+    loop_var: service_mgr
+  with_first_found:
+    - '{{ ansible_service_mgr }}.yml'
+    - default.yml
 
 - name: Install config file (version 3+)
   template:

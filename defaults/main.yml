@@ -4,7 +4,7 @@ corda_dir_location: /opt/corda
 corda_conf_location: '{{ corda_dir_location }}'
 corda_host_p2p: "{{ ansible_hostname }}"
 corda_host_rpc: "0.0.0.0"
-corda_java: Null
+corda_java:
 corda_java_options: "-Xmx2048m"
 corda_local_path: ""
 corda_initial_registration: false
@@ -27,4 +27,4 @@ corda_source: maven
 corda_url_doorman_url: "http://example-change.it"
 corda_url_networkmap_url: "http://example-change.it"
 corda_user: corda
-corda_version: 3.3
+corda_version: '3.3-corda'
