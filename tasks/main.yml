@@ -10,6 +10,23 @@
     - default.yml
 #    - "{{ ansible_distribution | lower }}.yml"
 
+- name: Get version of Java
+  command: java -version
+  register: _corda_java_version_check
+  changed_when: false
+  failed_when: false
+
+- name: Check Java has been installed
+  assert:
+    that: _corda_java_version_check.stderr is defined
+    msg: 'Please make sure java has been installed before starting this Ansible role'
+
+- name: Check the Java version
+  assert:
+    that:
+      - '"build 1.8.0" in (_corda_java_version_check.stderr | default(""))'
+    msg: 'Please make sure correct Java binary has been installed, the java -version returned "{{ _corda_java_version_check.stderr }}"'
+
 # For Ubuntu
 - include: ubuntu.yml
   when: (ansible_distribution | lower ) in ['ubuntu']
@@ -19,11 +36,13 @@
   when: (ansible_distribution | lower ) in ['centos', 'redhat', 'amazon']
 
 - name: Create group
+  become: yes
   group:
     name: "{{ corda_user }}"
     state: present
 
 - name: Create user
+  become: yes
   user:
     name: "{{ corda_user }}"
     groups: "{{ corda_user }}"
@@ -32,6 +51,7 @@
     shell: /bin/false
 
 - name: Prepare Corda directories
+  become: yes
   file:
     path: "{{ item }}"
     state: directory
@@ -51,13 +71,14 @@
     - default.yml
 
 - name: Install config file (version 3+)
+  become: yes
   template:
     src: node.conf.j2
     dest: "{{ corda_conf_location }}/node.conf"
     owner: "{{ corda_user }}"
     group: "{{ corda_user }}"
     mode: 0755
-  when: corda_version|version_compare('3','>=')
+  when: corda_version is version_compare('3','>=')
 
 # For jars from Maven Central
 - include: source_maven.yml
@@ -72,6 +93,8 @@
   when: corda_source == "artifactory"
 
 - name: Copy network-truststore
+  become: yes
+  become_user: "{{ corda_user }}"
   copy:
     src: "{{ corda_local_path }}/network-root-truststore.jks"
     dest: "{{ corda_dir_location }}/certificates/"

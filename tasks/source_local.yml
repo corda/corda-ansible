@@ -1,5 +1,6 @@
 ---
 - name: Get corda jars from local file
+  become: yes
   copy:
     src: "{{ corda_local_path }}/{{ item }}"
     dest: "{{ corda_dir_location }}"
