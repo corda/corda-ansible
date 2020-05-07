@@ -9,7 +9,7 @@
     repository_url: "http://repo1.maven.org/maven2"
   loop:
     - corda
-  when: corda_version|version_compare('3.1','>=')
+  when: corda_version is version('3.1','>=')
   notify:
     - start corda
   # module has a bug and repository_url is necessary for now
