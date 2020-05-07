@@ -55,7 +55,7 @@
     owner: "{{ corda_user }}"
     group: "{{ corda_user }}"
     mode: 0755
-  when: corda_version|version_compare('3','>=')
+  when: corda_version is version('3','>=')
 
 # For jars from Maven Central
 - include: source_maven.yml
